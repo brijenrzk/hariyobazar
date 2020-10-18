@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+// including variables and mixins
+@import "theme/variables";
+//@import "theme/mixins";
+@import "theme/predefine";
+
+
+
+// Custom Scss 
+
+@import "theme/header";
+@import "theme/form";
+@import "theme/section";
+

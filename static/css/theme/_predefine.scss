@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFProDisplay-Regular.ttf') format('opentype');
+}
+@font-face {
+    font-family: 'SF Compact Rounded';
+    src: url('../../fonts/SF-Compact-Rounded-Regular.ttf') format('opentype');
+}
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('../../fonts/SFCompactDisplay-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'SF Pro Display Bold';
+    src: url('../../fonts/SFProDisplay-Bold.ttf') format('truetype');
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'SF Pro Display';
+    font-weight: 400;
+}
+.sublink{
+    color: $link-color;
+}
+p{
+    margin: 0;
+    font-family: 'SF Pro Display';
+    font-weight: bold;
+}
+.primary__color{
+    color: $primary-color;
+}
