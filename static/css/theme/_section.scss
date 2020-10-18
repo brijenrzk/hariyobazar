@@ -1,0 +1,77 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 10px;
+    
+}
+.login__title{
+    font-family: 'SF Compact Rounded';
+    font-weight: bolder;
+    color: $primary-color;
+    margin:10px 0;
+}
+.login__subTitle{
+    font-size: 16px;
+    font-family: 'SF Pro Display Bold';
+    margin: 15px 0;
+}
+.login__forgotPassword{
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-start;
+    font-family: 'Sf Pro Display';
+    font-weight: bold;
+}
+
+.register{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 10px;
+    
+}
+.register__title{
+    font-family: 'SF Compact Rounded';
+    font-weight: bolder;
+    color: $primary-color;
+    margin:10px 0;
+}
+.register__subTitle{
+    font-size: 16px;
+    font-family: 'SF Pro Display Bold';
+    margin: 15px 0;
+}
+.register__forgotPassword{
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-start;
+    font-family: 'Sf Pro Display';
+    font-weight: bold;
+}
+.register .row{
+    width: 100%;
+}
+.register .col .row{
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.register .row .col{
+    padding: 0 5px 0 5px;
+
+}
+.register .row .col.s6{
+    padding: 5px 8px 10px 8px;
+}
