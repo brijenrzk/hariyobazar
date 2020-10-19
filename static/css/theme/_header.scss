@@ -50,6 +50,7 @@ header{
     display: flex;
     align-items: center;
     position: relative;
+    margin-right: 30px;
 
 }
 .nav__item{
@@ -89,7 +90,6 @@ header{
 .drop-down{
     display: inline-block;
     position: relative;
-    margin-right: 30px;
     margin-left: 20px;
 }
 
@@ -171,14 +171,20 @@ opacity: 0;
 }
 
 .drop-down__item {
-    font-size: 13px;
-    padding: 13px 10px 13px 20px;
-    text-align: left;
-    font-weight: 500;
-    color: $primary-color;
-    cursor: pointer;
-    position: relative;
-    border-bottom: 1px solid #e0e2e9;
+  font-size: 13px;
+  padding: 13px 10px 13px 20px;
+  text-align: left;
+  font-weight: 700;
+  color: $primary-color;
+  font-family: 'SF Pro Display Bold';
+  cursor: pointer;
+  position: relative;
+  border-bottom: 1px solid #e0e2e9;
+}
+.drop-down__itemLink{
+font-weight: 700;
+font-family: 'SF Pro Display Bold';
+color: $primary-color;
 }
 
 .drop-down__item-icon {

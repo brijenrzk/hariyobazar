@@ -9,26 +9,6 @@
 
 /*--------------------------- Color variations ----------------------*/
 /*--------------------------- Fonts ----------------------*/
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url("../../fonts/SFProDisplay-Regular.ttf") format("opentype");
-}
-
-@font-face {
-  font-family: 'SF Compact Rounded';
-  src: url("../../fonts/SF-Compact-Rounded-Regular.ttf") format("opentype");
-}
-
-@font-face {
-  font-family: 'SF Compact Display';
-  src: url("../../fonts/SFCompactDisplay-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: 'SF Pro Display Bold';
-  src: url("../../fonts/SFProDisplay-Bold.ttf") format("truetype");
-}
-
 a {
   text-decoration: none;
   cursor: pointer;
@@ -124,6 +104,10 @@ header {
   margin-left: 30px;
 }
 
+.nav__logo img {
+  height: 100%;
+}
+
 .nav__list {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -132,6 +116,7 @@ header {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
+  margin-right: 30px;
 }
 
 .nav__item {
@@ -177,7 +162,6 @@ header {
 .drop-down {
   display: inline-block;
   position: relative;
-  margin-right: 30px;
   margin-left: 20px;
 }
 
@@ -262,11 +246,18 @@ header {
   font-size: 13px;
   padding: 13px 10px 13px 20px;
   text-align: left;
-  font-weight: 500;
+  font-weight: 700;
   color: #164A41;
+  font-family: 'SF Pro Display Bold';
   cursor: pointer;
   position: relative;
   border-bottom: 1px solid #e0e2e9;
+}
+
+.drop-down__itemLink {
+  font-weight: 700;
+  font-family: 'SF Pro Display Bold';
+  color: #164A41;
 }
 
 .drop-down__item-icon {
