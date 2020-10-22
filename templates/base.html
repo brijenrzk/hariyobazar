@@ -7,11 +7,11 @@
     <title>Hariyo Bazar</title>
 
     <!-- CSS File -->
-    <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="{% static 'css/sass/materialize.css' %}"  media="screen,projection"/>
+    <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
     <style>
       @font-face {
         font-family: 'SF Pro Display';
@@ -38,7 +38,7 @@
 <header>
 <div class="top">
   <div class="top__left">
-    <p>Hello, <a class="sublink" href="{% url 'userMS:login' %}">Sign In</a> or <a href="{% url 'userMS:register' %}" class="sublink">Register</a></p>
+    <p>Hello, {%if not user.is_authenticated%}<a class="sublink" href="{% url 'userMS:login' %}">Sign In</a> or <a href="{% url 'userMS:register' %}" class="sublink">Register</a>{%else%}<a class="sublink" href="{% url 'userMS:dashboard' %}">{{user.first_name}}</a>{%endif%}</p>
     </div>
     <div class="top__right">
       <a class="sublink" href="#"> Help & Contact</a>
@@ -57,7 +57,11 @@
       <div class="drop-down">
         <div id="dropDown" class="drop-down__button">
           <div class="drop-down__image">
-            <img src="{% static 'images/user.svg' %}"/>
+            {%if not user.customer.photo%}
+            <img src="{% static 'images/default_user.png' %}"/>
+            {%else%}
+            <img src="{{user.customer.photo.url}}"/>
+            {%endif%}
           </div>
           <img src="{% static 'images/arrow-down.svg' %}" class="drop-down__icon" />
         </div>

@@ -1,57 +1,55 @@
 {%extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block content%}
 
 <section class="register">
   <h2 class="register__title">Hello</h2>
   <h4 class="register__subTitle">Register in <span class="primary__color">Hariyo Bazar</span></h4>
+  {{ form.errors }}
   <div class="row">
   <form class="form col s12" action="{%url 'userMS:register'%}" method="POST">
     {% csrf_token %}
     <div class="row">
-      <fieldset class="form__inputWrapper col s6">	
-        <input class="form__input" type="text" name="first_name" required>
+      <fieldset class="form__inputWrapper col s6">  
+        {{  form.first_name | add_class:"form__input" |attr:"required"|attr:"type:text"}}
         <label class="form__label">First Name</label>
       </fieldset>
-      <fieldset class="form__inputWrapper col s6">	
-        <input class="form__input" type="text" name="last_name" required>
+      <fieldset class="form__inputWrapper col s6">  
+        {{  form.last_name | add_class:"form__input" |attr:"required"|attr:"type:text" }}
         <label class="form__label">Last Name</label>
       </fieldset>
     </div>
 
     <div class="row">
-    <fieldset class="form__inputWrapper col s6">	
-      <input class="form__input" type="email" name="email" required>
+    <fieldset class="form__inputWrapper col s6">  
+      {{  form.email | add_class:"form__input" |attr:"required"|attr:"type:email" }}
       <label class="form__label">Email</label>
     </fieldset>
-    <fieldset class="form__inputWrapper col s6">	
-      <input class="form__input" type="password" name="password" required>
-      <label class="form__label">Password</label>
-    </fieldset>
-  </div>
-
-  <div class="row">
-    <fieldset class="form__inputWrapper col s6">	
-      <input class="form__input" type="text" name="username" required>
+    <fieldset class="form__inputWrapper col s6">  
+      {{  form.username | add_class:"form__input" |attr:"required"|attr:"type:text"|remove_attr:"autofocus" }}
       <label class="form__label">Username</label>
     </fieldset>
-    <fieldset class="form__inputWrapper col s6">	
-      <input class="form__input" type="tel" name="contact_number" required>
-      <label class="form__label">Contact Number</label>
+  </div>
+
+  <div class="row">
+    <fieldset class="form__inputWrapper col s6">  
+      {{  form.password1 | add_class:"form__input" |attr:"required"|attr:"type:password" }}
+      <label class="form__label">Password</label>
+    </fieldset>
+    <fieldset class="form__inputWrapper col s6">  
+      {{  form.password2 | add_class:"form__input" |attr:"required"|attr:"type:password" }}
+      <label class="form__label">Confirm Password</label>
     </fieldset>
   </div>
 
   <div class="row">
-    <fieldset class="form__inputWrapper col s6">	
-      <input class="form__input datepicker" type="text" name="dob" required>
+    <fieldset class="form__inputWrapper col s6">
+      {{  form2.dob | add_class:"form__input datepicker" |attr:"required"|attr:"type:text" }}  
       <label class="form__label">DOB</label>
     </fieldset>
     <fieldset class="form__inputWrapper col s6">
-      <select class="form__input browser-default" name="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-      </select>
+      {{form2.gender | add_class:"form__input browser-default"|attr:"required" }}
       <label class="form__label">Gender</label>
     </fieldset>
   </div>

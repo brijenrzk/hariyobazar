@@ -4,6 +4,9 @@
 <section class="login">
     <h2 class="login__title">Hello</h2>
     <h4 class="login__subTitle">Sign in to <span class="primary__color">Hariyo Bazar</span> or <a class="sublink" href="{% url 'userMS:register' %}">create an account</a> </h4>
+    {% for message in messages %}
+      <p id="messages">{{ message }}</p>
+    {%endfor%}
     <form class="form" action="" method="POST">
       {% csrf_token %}
       <fieldset class="form__inputWrapper">	
@@ -18,7 +21,7 @@
       <input type="submit" class="form__btn " value="Sign In"/>
     </div>
       </form>
-      <a class="sublink login__forgotPassword">Forgot password ?</a>
+      <a class="sublink login__forgotPassword" href="{% url 'userMS:password_reset' %}">Forgot password ?</a>
   </section>
 
   {%endblock content%}
