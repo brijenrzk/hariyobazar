@@ -129,6 +129,8 @@ def editProfile(request):
         if form.is_valid() and form2.is_valid():
             form.save()
             form2.save()
+            messages.success(
+                request, 'Your profile was successfully updated!')
             return redirect("userMS:dashboard")
 
     context = {'form': form, 'form2': form2}
@@ -145,8 +147,6 @@ def changePassword(request):
             messages.success(
                 request, 'Your password was successfully updated!')
             return redirect('userMS:dashboard')
-        else:
-            messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'userMS/change-password.html', {

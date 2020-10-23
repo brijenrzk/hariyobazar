@@ -8,10 +8,11 @@
             
     </div>
     <div class="profile__right col s12 m9">
-        <h6 class="profile__right_title">My Profile</h6>
+        <h6 class="profile__right_title">My Profile | {{ user.username }}</h6>
         {% for message in messages %}
-        <p id="messages">{{ message }}</p>
+        <div id="messages" class="success__box">{{ message }}</div>
       {%endfor%}
+      
         <div class="profile__right_wrap row col s12 m12">
             <div class="profile__right_image col s12 m3">
                 {%if not user.customer.photo%}

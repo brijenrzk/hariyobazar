@@ -30,6 +30,46 @@ p {
   color: #164A41;
 }
 
+.error__box {
+  background-color: #DC3544;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 2.5rem;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  font-family: 'Sf Pro Display';
+}
+
+.success__box {
+  background-color: #27A844;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 2.5rem;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 5px;
+  font-family: 'Sf Pro Display';
+}
+
 body {
   width: 100%;
 }
@@ -413,6 +453,35 @@ input:focus {
           box-shadow: none !important;
 }
 
+.form__inputWrapper i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 23px;
+  right: 20px;
+  cursor: pointer;
+  color: #C3C3C3;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.form__password_warning {
+  color: #164A41;
+  font-family: 'Sf Pro Display';
+  display: none;
+  opacity: 1;
+  -webkit-transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.form__password_warning.hide {
+  opacity: 0;
+}
+
 .login {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -698,6 +767,7 @@ form .profile__right {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-top: 0;
+  position: relative;
 }
 
 .file-field .btn {
@@ -720,5 +790,21 @@ form .profile__right {
 
 input.file-path.validate {
   height: 2em;
+}
+
+.file-field-hide {
+  color: transparent;
+}
+
+.file-field-hide a {
+  color: transparent;
+}
+
+.file-field label {
+  color: transparent;
+}
+
+.file-field span {
+  position: absolute;
 }
 /*# sourceMappingURL=style.css.map */

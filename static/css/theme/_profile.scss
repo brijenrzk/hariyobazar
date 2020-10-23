@@ -136,6 +136,7 @@ form .profile__right{
     display: flex;
     flex-direction: column;
     margin-top: 0;
+    position: relative;
 
 }
 .file-field .btn{
@@ -153,4 +154,16 @@ form .profile__right{
 }
 input.file-path.validate{
     height: 2em;
+}
+.file-field-hide{
+    color: transparent;
+}
+.file-field-hide a{
+    color: transparent;
+}
+.file-field label{
+    color: transparent;
+}
+.file-field span{
+    position: absolute;
 }

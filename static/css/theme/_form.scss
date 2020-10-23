@@ -84,3 +84,24 @@ input:focus{
     border-bottom: 2px solid $primary-color2 !important;
     box-shadow: none !important;
   }
+  .form__inputWrapper i{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 23px;
+    right: 20px;
+    cursor: pointer;
+    color: #C3C3C3;
+    transition: all 0.2s ease-in-out;
+      
+    }
+    .form__password_warning{
+      color: $primary-color;
+      font-family: 'Sf Pro Display';
+      display: none;
+      opacity: 1;
+      transition: opacity 0.8s ease-in-out;
+    }
+  .form__password_warning.hide{
+      opacity: 0;
+    }

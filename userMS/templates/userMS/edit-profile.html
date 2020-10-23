@@ -15,8 +15,16 @@
                 <span>/</span>
                 <a href="#!" class="sublink" style="font-weight: 600;">Edit Profile</a>
               </div>
-              {{ form.errors }}
-              {{ form2.errors }}
+              {%for key, value in form.errors.items%}
+              {% for error in value %}
+                <div class="error__box">{{ error }}</div>
+                {% endfor %}
+              {%endfor%}
+              {%for key, value in form2.errors.items%}
+              {% for error in value %}
+                <div class="error__box">{{ error }}</div>
+                {% endfor %}
+              {%endfor%}
         <form class="form row col s12" method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
         <div class="profile__right_wrap row col s12 m12">
@@ -27,14 +35,15 @@
                 <img src="{{user.customer.photo.url}}"/>
                 {%endif%}
                 <div class="file-field input-field">
-              
                   <div class="btn">
                     <span>Upload</span>
-                    {{  form2.photo |attr:"type:file"|remove_attr:"required" }}
-                    <!-- {{ImageForm.as_p}} -->
+                    <div class="file-field-hide">
+                      {{  form2.photo | add_class:"" |attr:"type:file"|remove_attr:"required" }}
+                    </div>
+                    
                   </div>
                   <div class="file-path-wrapper">
-                    <input class="file-path validate" value="{{user.customer.photo}}"  type="text">
+                    <input class="file-path validate" type="text">
                   </div>
                 </div>
             </div>

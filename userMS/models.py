@@ -28,3 +28,12 @@ class Customer(models.Model):
     def delete(self, *args, **kwargs):
         self.photo.delete()
         super().delete(*args, **kwargs)
+
+
+class EmailVerfication(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    verify_code = models.BigIntegerField(null=True, blank=True)
+    verify_status = models.BooleanField(default=0)
+
+    def __str__(self):
+        return self.user.email
