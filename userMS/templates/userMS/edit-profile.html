@@ -100,7 +100,7 @@
     
             <div class="profile__right_wrapDetail row s12 m12">
               <div class="profile__right_detail col s12 m4">
-                  <h6>Email <a href="#" class="sublink">Change</a></h6>
+                  <h6>Email <a href="{% url 'userMS:change-email' %}" class="sublink">Change</a></h6>
                   <p>{{ user.email }}</p>
               </div>
               

@@ -8,9 +8,15 @@ $(document).ready(function(){
     //     $('.drop-down').toggle();
     //   }            
   // });
-  $('.datepicker').datepicker();
+
   $('select').formSelect();
   });
+
+  $('.datepicker').datepicker({
+    defaultDate : new Date(2002,01,01),
+    maxDate:  new Date(2002,01,31)
+  })
+    
 
    function Toggle() { 
     var temp = document.getElementById("typepass"); 

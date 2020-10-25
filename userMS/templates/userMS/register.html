@@ -38,13 +38,13 @@
 
   <div class="row">
     <fieldset class="form__inputWrapper col s6">  
-      {{  form.password1 | add_class:"form__input form__password-active" |attr:"required"|attr:"type:password" }}
+      {{  form.password1 | add_class:"form__input form__password-active" |attr:"required"|attr:"type:password"|attr:"minlength:8" }}
       <label class="form__label">Password</label>
       <i id ="eye2" class="small material-icons" onclick="Toggle2()">visibility</i>
       <div class="form__password_warning"><li>8 characters long</li><li>Don't use common password</li></div>
     </fieldset>
     <fieldset class="form__inputWrapper col s6">  
-      {{  form.password2 | add_class:"form__input" |attr:"required"|attr:"type:password" }}
+      {{  form.password2 | add_class:"form__input" |attr:"required"|attr:"type:password"|attr:"minlength:8" }}
       <label class="form__label">Confirm Password</label>
       <i id ="eye3" class="small material-icons" onclick="Toggle3()">visibility</i>
     </fieldset>

@@ -30,7 +30,7 @@ class Customer(models.Model):
         super().delete(*args, **kwargs)
 
 
-class EmailVerfication(models.Model):
+class EmailVerification(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     verify_code = models.BigIntegerField(null=True, blank=True)
     verify_status = models.BooleanField(default=0)

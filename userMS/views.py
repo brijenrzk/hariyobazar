@@ -8,11 +8,16 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-from .models import Customer
+from .models import Customer, EmailVerification
 from .forms import CreateUserForm, CreateUserForm2, UpdateUserForm, UpdateUserForm2
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from random import randint
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
+
 # Create your views here.
 
 
@@ -27,10 +32,10 @@ def signIn(request):
             print(user)
             if user is not None:
                 auth.login(request, user)
-                print("logged in")
                 cus = Customer.objects.get(user_id=request.user.id)
                 cus.online_status = 1
                 cus.save()
+                # print()
                 return redirect('userMS:dashboard')
 
             else:
@@ -54,6 +59,8 @@ def register(request):
                 profile = form2.save(commit=False)
                 profile.user = User.objects.get(pk=user.id)
                 profile.save()
+                em = EmailVerification(user=user)
+                em.save()
                 username = user.username
                 password = form.cleaned_data.get('password1')
                 user = authenticate(username=username, password=password)
@@ -77,45 +84,6 @@ def signout(request):
 @login_required(login_url='userMS:login')
 def dashboard(request):
     return render(request, "userMS/dashboard.html", {"usr": User.objects.get(pk=request.user.id)})
-
-
-@login_required(login_url='userMS:login')
-def dashboard(request):
-    return render(request, "userMS/dashboard.html", {"usr": User.objects.get(pk=request.user.id)})
-
-
-# @login_required(login_url='userMS:login')
-# def editProfile(request):
-#     if(request.method == "POST"):
-#         first_name = request.POST['first_name']
-#         last_name = request.POST['last_name']
-#         contact = request.POST['contact']
-#         address = request.POST['address']
-#         dob = request.POST['dob']
-#         gender = request.POST['gender']
-#         myfile = request.FILES.get('photo')
-#         if myfile.size < 2e+6:
-#             return render(request, "userMS/edit-profile.html", context={"err": "Image size limit exceed then 3mb"})
-#         usr = User.objects.get(pk=request.user.id)
-#         cus = Customer.objects.get(user_id=usr.id)
-#         usr.first_name = first_name
-#         usr.last_name = last_name
-#         usr.save()
-#         if(myfile is not None):
-#             cus.photo.delete()
-#             fs = FileSystemStorage()
-#             filename = fs.save(myfile.name, myfile)
-#             cus.photo = filename
-#         cus.contact = contact
-#         cus.address = address
-#         cus.dob = dob
-#         cus.gender = gender
-#         cus.save()
-#         return redirect('userMS:dashboard')
-#     else:
-#         return render(request, "userMS/edit-profile.html", context={})
-
-#     return render(request, "userMS/edit-profile.html", {"usr": User.objects.get(pk=request.user.id)})
 
 
 @login_required(login_url='userMS:login')
@@ -152,3 +120,52 @@ def changePassword(request):
     return render(request, 'userMS/change-password.html', {
         'form': form
     })
+
+
+def changeEmail(request):
+    em = EmailVerification.objects.get(user=request.user)
+    if request.method == 'POST':
+        email = request.POST['email']
+        checkExist = User.objects.filter(email=email)
+        if not checkExist:
+            usr = request.user
+            usr.email = email
+            usr.save()
+            em.verify_status = 0
+            em.save()
+            messages.success(request, 'Your email was successfully changed!')
+            return redirect('userMS:dashboard')
+        else:
+            messages.info(request, 'This email already exists')
+    return render(request, "userMS/change-email.html", {})
+
+
+@login_required(login_url='userMS:login')
+def verifyEmail(request):
+    em = EmailVerification.objects.get(user=request.user)
+    if em.verify_status:
+        return redirect('userMS:dashboard')
+    if request.method == 'POST':
+        code = request.POST['code']
+        if code == str(em.verify_code):
+            em.verify_status = 1
+            em.save()
+            messages.success(
+                request, 'Your email was successfully verified!')
+            return redirect('userMS:dashboard')
+        else:
+            messages.info(request, 'Code does not match.')
+
+    else:
+        val = randint(100000, 999999)
+        em.verify_code = val
+        em.verify_status = 0
+        em.save()
+        template = render_to_string(
+            'userMS/email-template.html', {'name': request.user.first_name, 'code': em.verify_code})
+        email = EmailMessage('Confirm your email address',
+                             template, settings.EMAIL_HOST_USER, [request.user.email],)
+        email.fail_silently = False
+        email.send()
+
+    return render(request, "userMS/verify-email.html", {})

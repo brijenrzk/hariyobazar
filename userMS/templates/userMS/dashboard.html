@@ -27,11 +27,11 @@
                         <h6>Full Name</h6>
                         <p>{{ user.first_name }} {{ user.last_name }}</p>
                     </div>
-                    <div class="profile__right_detail col s12 m4">
-                        <h6>Email</h6>
+                    <div class="profile__right_detail col s12 m5">
+                        <h6>Email {% if user.emailverification.verify_status %}<i class="material-icons sublink" style="font-size: 14px;">check</i> {%else%} <a class="sublink" href="{% url 'userMS:verify-email' %}">(Verify)</a>{% endif %}</h6>
                         <p>{{ user.email }}</p>
                     </div>
-                    <div class="profile__right_detail col s12 m4">
+                    <div class="profile__right_detail col s12 m3">
                         <h6>Mobile</h6>
                         <p>{{ user.customer.contact }}</p>
                     </div>
@@ -42,11 +42,11 @@
                         <h6>Birthday</h6>
                         <p>{{ user.customer.dob }}</p>
                     </div>
-                    <div class="profile__right_detail col s12 m4">
+                    <div class="profile__right_detail col s12 m5">
                         <h6>Gender</h6>
                         <p>{{ user.customer.gender }}</p>
                     </div>
-                    <div class="profile__right_detail col s12 m4">
+                    <div class="profile__right_detail col s12 m3">
                         <h6>Address</h6>
                         <p>{{ user.customer.address }}</p>
                     </div>

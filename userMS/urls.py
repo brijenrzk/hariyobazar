@@ -15,6 +15,8 @@ urlpatterns = [
     path('dashboard/edit-profile/', views.editProfile, name="edit-profile"),
     path('dashboard/change-password/',
          views.changePassword, name="change-password"),
+    path('dashboard/verify-email', views.verifyEmail, name="verify-email"),
+    path('dashboard/change-email', views.changeEmail, name="change-email"),
 
     path('accounts/password_reset/',
          auth_views.PasswordResetView.as_view(
