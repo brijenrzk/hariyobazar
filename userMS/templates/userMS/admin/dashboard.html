@@ -1,0 +1,80 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% block content%}
+{%include 'admin-nav.html' with active="home"%}
+<section class="dashboard">
+  <div class="wrap-title">
+    <i class="material-icons">dashboard</i>
+    <h4>Dashboard</h4>
+  </div>
+  <div class="details-dash">
+    <div class="wrap-box1">
+      <i class="material-icons">person</i>
+      <h4>Total Users</h4>
+      <h3>{{ total_customer }}</h3>
+    </div>
+    <div class="wrap-box2 ">
+      <span class="online"></span>
+      <i class="material-icons">person_pin</i>
+      <h4>Active Users</h4>
+      <h3>{{ total_online }}</h3>
+    </div>
+    <div class="wrap-box3">
+      <i class="material-icons">list</i>
+      <h4>Total Items</h4>
+      <h3>7600</h3>
+    </div>
+  </div>
+  <canvas id="myChart" width="400" height="150" style="margin-top: 30px;margin-bottom: 30px;"></canvas>
+</section>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+<script type="text/javascript">
+  $.get('{% url "userMS:line_chart_json" %}', function(data) {
+      var ctx = $("#myChart").get(0).getContext("2d");
+      new Chart(ctx, {
+          type: 'line',
+          data: data,
+          options :{	
+            elements: {
+                line: {
+                  fill : false,
+
+                      }
+              },
+              scales :{
+              xAxes: [{
+                  display:true,
+                  gridLines: {
+                       display: true,
+                       drawOnChartArea : false
+                  },
+                  scaleLabel: {
+                       display: true,
+                      labelString: 'Week Days'
+
+      }
+              }],
+              yAxes: [{
+                  display:true,
+                  gridLines: {
+                      display: true,
+                      drawOnChartArea : false
+                  },
+                  scaleLabel: {
+                      display: true,
+                      labelString: 'Value'
+      }
+              }]
+          } 
+          },
+ 
+
+      });
+  });
+
+
+</script>
+
+{%endblock content%}

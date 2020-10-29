@@ -36,3 +36,10 @@ class UpdateUserForm2(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['photo', 'contact', 'address', 'dob', 'gender']
+
+
+class UpdateAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username']

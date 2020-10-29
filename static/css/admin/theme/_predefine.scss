@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFProDisplay-Regular.ttf') format('opentype');
+}
+@font-face {
+    font-family: 'SF Compact Rounded';
+    src: url('../../fonts/SF-Compact-Rounded-Regular.ttf') format('opentype');
+}
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('../../fonts/SFCompactDisplay-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'SF Pro Display Bold';
+    src: url('../../fonts/SFProDisplay-Bold.ttf') format('truetype');
+}
+.sublink{
+    color: $link-color !important;
+}
+.primary__color2{
+    color: $primary-color2;
+}
+section {
+    padding-left: 300px !important;
+    padding-top: 90px;
+    width: 100% !important;
+  }
+
+@media only screen and (max-width : 992px) {
+    section {
+      padding-left: 0px !important;
+    }
+  }
+
+  .error__box{
+    background-color: $error_box;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-family: 'Sf Pro Display';
+}
+.success__box{
+    background-color: $success_box;
+    color: #fff;
+    display: flex;
+    margin-bottom: 5px;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+    font-family: 'Sf Pro Display';
+}

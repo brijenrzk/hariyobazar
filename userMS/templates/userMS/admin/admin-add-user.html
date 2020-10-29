@@ -1,19 +1,15 @@
-{%extends 'base.html' %}
+{%extends 'admin-base.html'%}
 {% load static %}
 {% load widget_tweaks %}
 {% block content%}
+{%include 'admin-nav.html'%}
 <section class="profile row col s12 m12">
-    <div class="profile__left col s12 m3">
-        <h6 class="profile__left_title">Manage My Account</h4>
-            <a class="sublink profile__left_link active" href="{% url 'userMS:dashboard' %}">My Profile</a>
-            
-    </div>
-    <div class="profile__right col s12 m9">
-        <h6 class="profile__right_title">Edit Profile</h4>
+    <div class="profile__right col s12 m12">
+        <h6 class="profile__right_title">Add User</h4>
               <div class="s12 m12" style="margin-bottom: 5px;">
-                <a href="{% url 'userMS:dashboard' %}" class="sublink">My Profile</a>
+                <a href="{% url 'userMS:admin-users-list' %}" class="sublink">Users</a>
                 <span>/</span>
-                <a href="#!" class="sublink" style="font-weight: 600;">Edit Profile</a>
+                <a href="#!" class="sublink" style="font-weight: 600;">Add User</a>
               </div>
               {%for key, value in form.errors.items%}
               {% for error in value %}
@@ -25,30 +21,11 @@
                 <div class="error__box">{{ error }}</div>
                 {% endfor %}
               {%endfor%}
-        <form class="form row col s12" method="POST" action="" enctype="multipart/form-data">
+        <form class="form row col s12" method="POST" action="">
             {% csrf_token %}
         <div class="profile__right_wrap row col s12 m12">
-            <div class="profile__right_image col s12 m3">
-                {%if not user.customer.photo%}
-                <img src="{% static 'images/default_user.png' %}"/>
-                {%else%}
-                <img src="{{user.customer.photo.url}}"/>
-                {%endif%}
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>Upload</span>
-                    <div class="file-field-hide">
-                      {{  form2.photo | add_class:"" |attr:"type:file"|remove_attr:"required" }}
-                    </div>
-                    
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
-                </div>
-            </div>
             <div class="profile__right_details col s12 m9">
-                <div class="profile__right_wrapDetail row s12 m12">
+                <div class="profile__right_wrapDetail row s12 m12"  style="margin-bottom: 0; padding-bottom: 0;">
                     <div class="profile__right_detail col s12 m5">
                       <fieldset class="form__inputWrapper">	
                         {{  form.first_name | add_class:"form__input" |attr:"required"|attr:"type:text"}}
@@ -65,24 +42,44 @@
                     
                 </div>
     
-                <div class="profile__right_wrapDetail row s12 m12">
+                <div class="profile__right_wrapDetail row s12 m12"  style="margin-bottom: 0; padding-bottom: 0;">
                   <div class="profile__right_detail col s12 m5">
                     <fieldset class="form__inputWrapper">	
-                      {{  form2.contact | add_class:"form__input" |attr:"type:tel"|remove_attr:"required" }}
-                      <label class="form__label">Mobile</label>
+                        {{  form.email | add_class:"form__input" |attr:"required"|attr:"type:email" }}
+                      <label class="form__label">Email</label>
                     </fieldset>
                   </div>
                   <div class="col m1"></div>
                   <div class="profile__right_detail col s12 m5">
                     <fieldset class="form__inputWrapper">	
-                      {{  form2.address | add_class:"form__input" |attr:"type:text"|remove_attr:"required" }}
-                      <label class="form__label">Address</label>
+                        {{  form.username | add_class:"form__input" |attr:"required"|attr:"type:text"|remove_attr:"autofocus" }}
+                      <label class="form__label">Username</label>
                     </fieldset>
                   </div>
                   
               </div>
     
-              <div class="profile__right_wrapDetail row s12 m12">
+              <div class="profile__right_wrapDetail row s12 m12"  style="margin-bottom: 0; padding-bottom: 0;">
+                <div class="profile__right_detail col s12 m5">
+                  <fieldset class="form__inputWrapper">	
+                    {{  form.password1 | add_class:"form__input form__password-active" |attr:"required"|attr:"type:password"|attr:"minlength:8" }}
+                    <label class="form__label">Password</label>
+                    <i id ="eye2" class="small material-icons" onclick="Toggle2()">visibility</i>
+                    <div class="form__password_warning"><li>8 characters long</li><li>Don't use common password</li></div>
+                  </fieldset>
+                </div>
+                <div class="col m1"></div>
+                <div class="profile__right_detail col s12 m5">
+                  <fieldset class="form__inputWrapper">
+                    {{  form.password2 | add_class:"form__input" |attr:"required"|attr:"type:password"|attr:"minlength:8" }}
+                    <label class="form__label">Confirm Password</label>
+                    <i id ="eye3" class="small material-icons" onclick="Toggle3()">visibility</i>
+                  </fieldset>
+                </div>
+            </div>
+
+                
+            <div class="profile__right_wrapDetail row s12 m12"  style="margin-bottom: 0; padding-bottom: 0;">
                 <div class="profile__right_detail col s12 m5">
                   <fieldset class="form__inputWrapper">	
                     {{  form2.dob | add_class:"form__input datepicker" |attr:"required"|attr:"type:text" }} 
@@ -91,24 +88,18 @@
                 </div>
                 <div class="col m1"></div>
                 <div class="profile__right_detail col s12 m5">
-                  <fieldset class="form__inputWrapper">
+                  <fieldset class="form__inputWrapper">	
                     {{form2.gender | add_class:"form__input browser-default"|attr:"required" }}
                     <label class="form__label">Gender</label>
                   </fieldset>
                 </div>
+                
             </div>
-    
-            <div class="profile__right_wrapDetail row s12 m12">
-              <div class="profile__right_detail col s12 m4">
-                  <h6>Email <a href="{% url 'userMS:change-email' %}" class="sublink">Change</a></h6>
-                  <p>{{ user.email }}</p>
-              </div>
-              
-          </div>
+
     </div>
              
         </div>
-        <div class="profile__right_buttons col s12 m4  offset-m5">
+        <div class="profile__right_buttons col s12 m4 ">
           <div class="waves-effect waves-light btn">
             <input type="submit" class="form__btn " value="Save Changes"/>
           </div>
@@ -120,5 +111,6 @@
     </form>
     </div>
     </section>
+
 
 {%endblock content%}

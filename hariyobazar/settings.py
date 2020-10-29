@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'userMS.apps.UsermsConfig',
     'django_cleanup',
+    'chartjs',
 ]
 
 MIDDLEWARE = [
