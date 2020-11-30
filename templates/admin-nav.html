@@ -1,0 +1,39 @@
+{% load static %}
+<header>
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <a href="#" class="nav__logo"><img src="{% static 'images/logo.svg' %}" /></a>
+      <li><div class="user-view">
+        <span class="name">{{ request.user.first_name }}</span></a>
+        <span class="email">{{ request.user.email }}</span>
+      </div></li>
+      <li class="nav__item {% if active == 'home' %}nav__item--active{% endif %}"><a href="{% url 'userMS:admin-dashboard' %}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+      <li class="nav__item {% if active == 'user' %}nav__item--active{% endif %}"><a href="{% url 'userMS:admin-users-list' %}"><i class="material-icons">person</i>Users</a></li>
+    </ul>
+    <div class="top__bar">
+        <div class="top__elements">
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+            <div class="drop-down">
+                <div id="dropDown" class="drop-down__button">
+                  <p class="dropDownContent">Hi! <span class="primary__color2" style="padding-left: 5px;">{{ request.user.first_name }}</span> <img src="{% static 'images/arrow-down.svg' %}" class="drop-down__icon" /></p>
+                </div>
+                <div class="drop-down__menu-box">
+                  <ul class="drop-down__menu">
+                    <a href="{% url 'userMS:admin-profile' %}" class="drop-down__itemLink">
+                        <li data-name="dashboard" class="drop-down__item">Profile
+                          <img class="drop-down__item-icon" src="{% static 'images/dashboard.svg' %}" />
+                        </li>
+                        </a>
+                        <a href="{% url 'userMS:logout' %}" class="drop-down__itemLink">
+                        <li data-name="logout" class="drop-down__item">Logout
+                          <img class="drop-down__item-icon" src="{% static 'images/logout.svg' %}" />
+                           </li>
+                          </a>
+                  </ul>
+                </div>
+              </div>
+
+        </div>
+    </div>
+    
+</header>

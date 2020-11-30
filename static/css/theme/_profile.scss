@@ -1,0 +1,169 @@
+.profile{
+    width: 85%;  
+    margin: 0px auto;
+}
+.profile.row{
+    padding: 0;
+}
+.profile__left.col{
+height: 200px;
+padding-left: 30px;
+padding-top: 20px;
+}
+.profile__right.col{
+border-radius: 5px;
+background: #fff;
+box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.07);
+padding-left: 20px;
+padding-right: 20px;
+padding-top: 20px;
+}
+
+.profile__left h6{
+    font-size: 16px;
+    font-family: 'Sf Pro Display Bold';
+    padding-bottom: 10px;
+
+}
+a.profile__left_link{
+    color: #61645F;
+    padding-left: 14px;
+}
+a.active{
+    color: $link-color;
+}
+.profile__left_link{
+display: flex;
+flex-direction: column;
+padding-bottom: 10px;
+}
+
+.profile__right h6{
+    font-size: 16px;
+    font-family: 'Sf Pro Display';
+    font-weight: 900;
+    color: $primary-color;
+    padding-bottom: 10px;
+
+}
+.row.profile__right_wrap{
+ padding: 0;
+ margin: 0;
+}
+.profile__right_wrap .col{
+    padding: 0;
+}
+.profile__right_image{
+padding-right: 5px;
+}
+.profile__right_image img{
+    width: 80%;
+    border-radius: 5px;
+    padding-bottom: 10px;
+}
+.profile__right_details{
+   
+}
+.profile__right_wrapDetail{
+    margin-left: 20px;
+}
+.profile__right_detail{
+    //margin-bottom: 20px;
+
+}
+.profile__right_detail h6{
+padding: 0;
+margin: 0;
+margin-bottom: 4px;
+color: #645C5C;
+font-size: 0.875rem;
+font-family: 'Sf Compact Display';
+}
+.profile__right_detail p{
+color: #000;
+font-size: 1rem;
+font-family: 'Sf Compact Display';
+}
+
+
+.profile__right_buttons.row{
+    margin-left: 10px;
+}
+.profile__right_button{
+    margin-left: 20px;
+    height: 3rem;
+    width: 15.625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile__right_button a{
+    color: $primary-color4;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Sf Pro Display';
+}
+.btn.profile__right_button{
+    background-color: $primary-color2;
+    box-shadow: none;
+    border-radius: 5px;
+}
+.btn.profile__right_button:hover{
+    background-color: $primary-color2;
+    box-shadow: none;
+}
+
+.profile__right .form{
+    width: 20rem;
+    margin-bottom: 30px;
+}
+
+form .profile__right{
+    margin: 0;
+    padding: 0;
+}
+
+.form .profile__right_wrapDetail{
+    margin-bottom: 0px;
+}
+.profile__right_buttons .btn{
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+.file-field{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    position: relative;
+
+}
+.file-field .btn{
+    height: 30px;
+    width: 80%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+
+}
+.file-field .file-path-wrapper{
+    padding: 0;
+    width: 80%;
+    margin: 0;
+}
+input.file-path.validate{
+    height: 2em;
+}
+.file-field-hide{
+    color: transparent;
+}
+.file-field-hide a{
+    color: transparent;
+}
+.file-field label{
+    color: transparent;
+}
+.file-field span{
+    position: absolute;
+}

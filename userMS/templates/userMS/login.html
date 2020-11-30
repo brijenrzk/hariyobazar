@@ -1,0 +1,28 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content%}
+<section class="login">
+    <h2 class="login__title">Hello</h2>
+    <h4 class="login__subTitle">Sign in to <span class="primary__color">Hariyo Bazar</span> or <a class="sublink" href="{% url 'userMS:register' %}">create an account</a> </h4>
+    {% for message in messages %}
+    <div class="error__box">{{ message }}</div>
+    {%endfor%}
+    <form class="form" action="" method="POST">
+      {% csrf_token %}
+      <fieldset class="form__inputWrapper">	
+        <input class="form__input" type="text" name="username" required>
+        <label class="form__label">Username or Email</label>
+      </fieldset>
+      <fieldset class="form__inputWrapper">	
+        <input class="form__input" type="password" name="password" id="typepass" required>
+        <label class="form__label">Password</label>
+        <i id ="eye" class="small material-icons" onclick="Toggle()">visibility</i>
+      </fieldset>
+      <div class="waves-effect waves-light btn">
+      <input type="submit" class="form__btn " value="Sign In"/>
+    </div>
+      </form>
+      <a class="sublink login__forgotPassword" href="{% url 'userMS:password_reset' %}">Forgot password ?</a>
+  </section>
+
+  {%endblock content%}

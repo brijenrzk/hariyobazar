@@ -1,0 +1,100 @@
+.dashboard{  
+    width: 90% !important;
+    margin: 0 auto;
+}
+.wrap-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 40px;
+} 
+.wrap-title h4{
+    margin: 0;
+    padding: 0;
+    font-family: 'Sf Compact Rounded';
+    font-size: 1.5rem;
+    color: $primary-color2;
+    padding-left: 5px;
+}  
+.wrap-title i{
+    background-color: $primary-color2;
+    padding: 6px;
+    color: #fff !important;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+.details-dash{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+}
+
+.wrap-box1 {
+    width: 32%;
+    height: 13rem;
+    border-radius: 5px;
+    background-image: url("/static/images/admin-stat1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+
+}
+.wrap-box2{
+    width: 32%;
+    height: 13rem;
+    border-radius: 5px;
+    background-image: url("/static//images/admin-stat2.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+
+
+}
+.wrap-box3{
+    width: 32%;
+    height: 13rem;
+    border-radius: 5px;
+    background-image: url("/static//images/admin-stat3.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+
+}
+
+.details-dash h4{
+    color: #fff;
+    margin: 0;
+    font-family: 'Sf Compact Rounded';
+    margin-top: 5px;
+    font-size: 2rem;
+}
+.details-dash h3{
+    color: #fff;
+    margin: 0;
+    font-family: 'Sf Pro Display Bold';
+    margin-top: 5px;
+    font-size: 2rem;
+}
+.details-dash i{
+    color: #fff !important;
+    font-size: 3rem;
+}
+@media only screen and (max-width : 992px) {
+    .wrap-box1,.wrap-box2,.wrap-box3 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+  }

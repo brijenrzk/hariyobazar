@@ -1,0 +1,73 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content%}
+<section class="profile row col s12 m12">
+    <div class="profile__left col s12 m3">
+        <h6 class="profile__left_title">Manage My Account</h6>
+            <a class="sublink profile__left_link active">My Profile</a>
+            
+    </div>
+    <div class="profile__right col s12 m9">
+        <h6 class="profile__right_title">My Profile | {{ user.username }}</h6>
+        {% for message in messages %}
+        <div id="messages" class="success__box">{{ message }}</div>
+      {%endfor%}
+      
+        <div class="profile__right_wrap row col s12 m12">
+            <div class="profile__right_image col s12 m3">
+                {%if not user.customer.photo%}
+                <img src="{% static 'images/default_user.png' %}"/>
+                {%else%}
+                <img src="{{user.customer.photo.url}}"/>
+                {%endif%}
+            </div>
+            <div class="profile__right_details col s12 m9">
+                <div class="profile__right_wrapDetail row s12 m12">
+                    <div class="profile__right_detail col s12 m4">
+                        <h6>Full Name</h6>
+                        <p>{{ user.first_name }} {{ user.last_name }}</p>
+                    </div>
+                    <div class="profile__right_detail col s12 m5">
+                        <h6>Email {% if user.emailverification.verify_status %}<i class="material-icons sublink" style="font-size: 14px;">check</i> {%else%} <a class="sublink" href="{% url 'userMS:verify-email' %}">(Verify)</a>{% endif %}</h6>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div class="profile__right_detail col s12 m3">
+                        <h6>Mobile</h6>
+                        <p>{{ user.customer.contact }}</p>
+                    </div>
+                    
+                </div>
+                <div class="profile__right_wrapDetail row s12 m12">
+                    <div class="profile__right_detail col s12 m4">
+                        <h6>Birthday</h6>
+                        <p>{{ user.customer.dob }}</p>
+                    </div>
+                    <div class="profile__right_detail col s12 m5">
+                        <h6>Gender</h6>
+                        <p>{{ user.customer.gender }}</p>
+                    </div>
+                    <div class="profile__right_detail col s12 m3">
+                        <h6>Address</h6>
+                        <p>{{ user.customer.address }}</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="profile__right_buttons row s12 m12">
+            <a href="{% url 'userMS:change-password' %}" class="">
+            <div class="profile__right_button waves-effect waves-light btn row s12 m6">
+                CHANGE PASSWORD
+              </div>
+            </a>
+              <div class="offset-m8"></div>
+              <a href="{% url 'userMS:edit-profile' %}" class="">
+              <div class="profile__right_button waves-effect waves-light btn row s12 m6">
+               EDIT PROFILE
+              </div>
+            </a>
+        </div>
+    
+    </div>
+    </section>
+{%endblock content%}

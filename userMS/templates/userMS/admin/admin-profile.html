@@ -1,0 +1,50 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% block content%}
+{%include 'admin-nav.html'%}
+<section class="profile row col s12 m12">
+  <div class="profile__right col s12 m12">
+      <h6 class="profile__right_title">My Profile | {{ usr.username }}</h6>
+        {% for message in messages %}
+        <div id="messages" class="success__box">{{ message }}</div>
+      {%endfor%}
+      <div class="profile__right_wrap row col s12 m12">
+          <div class="profile__right_details col s12 m12">
+              <div class="profile__right_wrapDetail row s12 m12">
+                  <div class="profile__right_detail col s12 m4">
+                      <h6>First Name</h6>
+                      <p>{{ usr.first_name }}</p>
+                  </div>
+                  <div class="profile__right_detail col s12 m4">
+                      <h6>Last Name</h6>
+                      <p>{{ usr.last_name }}</p>
+                  </div>
+                  <div class="profile__right_detail col s12 m4">
+                      <h6>Email</h6>
+                      <p>{{ usr.email }}</p>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+      <div class="profile__right_buttons row s12 m12">
+        <a href="{% url 'userMS:admin-change-password' %}" class="">
+          <div class="profile__right_button waves-effect waves-light btn row s12 m6">
+              CHANGE PASSWORD
+            </div>
+        </a>
+            <div class="offset-m8"></div>
+            <a href="{% url 'userMS:admin-edit-profile' %}" class="">
+            <div class="profile__right_button waves-effect waves-light btn row s12 m6">
+              EDIT PROFILE
+            </div>
+            </a>
+      </div>
+  
+  </div>
+  </section>
+
+
+
+
+  {%endblock content%}

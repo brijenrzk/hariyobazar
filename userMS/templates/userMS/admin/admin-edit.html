@@ -1,0 +1,76 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content%}
+{%include 'admin-nav.html'%}
+<section class="profile row col s12 m12">
+  <div class="profile__right col s12 m12">
+      <h6 class="profile__right_title">Edit Profile</h4>
+            <div class="s12 m12" style="margin-bottom: 5px;">
+              <a href="{% url 'userMS:admin-profile' %}" class="sublink">My Profile</a>
+              <span>/</span>
+              <a href="#!" class="sublink" style="font-weight: 600;">Edit Profile</a>
+            </div>
+            {%for key, value in form.errors.items%}
+            {% for error in value %}
+              <div class="error__box">{{ error }}</div>
+              {% endfor %}
+            {%endfor%}
+      <form class="form row col s12" method="POST" action="">
+        {% csrf_token %}
+      <div class="profile__right_wrap row col s12 m12">
+          <div class="profile__right_details col s12 m9">
+              <div class="profile__right_wrapDetail row s12 m12" style="margin-bottom: 0; padding-bottom: 0;">
+                  <div class="profile__right_detail col s12 m5">
+                    <fieldset class="form__inputWrapper">	
+                      {{  form.first_name | add_class:"form__input" |attr:"required"|attr:"type:text"}}
+                      <label class="form__label">First Name</label>
+                    </fieldset>
+                  </div>
+                  <div class="col m1"></div>
+                  <div class="profile__right_detail col s12 m5">
+                    <fieldset class="form__inputWrapper">	
+                      {{  form.last_name | add_class:"form__input" |attr:"required"|attr:"type:text" }}
+                      <label class="form__label">Last Name</label>
+                    </fieldset>
+                  </div>
+                  
+              </div>
+  
+              <div class="profile__right_wrapDetail row s12 m12">
+                <div class="profile__right_detail col s12 m5">
+                  <fieldset class="form__inputWrapper">	
+                    {{  form.email | add_class:"form__input" |attr:"required"|attr:"type:email" }}
+                    <label class="form__label">Email</label>
+                  </fieldset>
+                </div>
+                <div class="col m1"></div>
+                <div class="profile__right_detail col s12 m5">
+                  <fieldset class="form__inputWrapper">	
+                    {{  form.username | add_class:"form__input" |attr:"required"|attr:"type:text" }}
+                    <label class="form__label">Username</label>
+                  </fieldset>
+                </div>
+                
+            </div>
+
+  </div>
+           
+      </div>
+      <div class="profile__right_buttons col s12 m4">
+        <div class="waves-effect waves-light btn">
+          <input type="submit" class="form__btn " value="Save Changes"/>
+        </div>
+    
+    </div>
+  
+  
+  
+  </form>
+  </div>
+  </section>
+
+
+
+
+  {%endblock content%}
