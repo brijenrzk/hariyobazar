@@ -1,0 +1,57 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% block content%}
+{%include 'admin-nav.html' with active="subcategory"%}
+<section>
+  {% for message in messages %}
+  <div id="messages" class="success__box">{{ message }}</div>
+{%endfor%}
+    <div class="row">
+        <div id="admin" class="col s12">
+          <div class="card material-table">
+            <div class="table-header">
+              <span class="table-title"> Sub Category</span>
+              <div class="actions">
+                <a href="{% url 'productMS:admin-products-add-subcategory' %}" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">add</i></a>
+                <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+              </div>
+            </div>
+            <table id="datatable">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Sub Category Name</th>
+                  <th>Category Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for c in cat%}
+                <tr>
+                  <td>{{ c.id }} </td>
+                  <td>{{ c.sub_category_name }}</td>
+                   <td>{{ c.category.category_name }}</td>
+                  <td><a href="{%url 'productMS:admin-products-edit-subcategory' c.pk%}"><i class="material-icons" style="font-size: 1.3rem;padding-right: 3px;">edit</i></a> <a class="modal-trigger" href="#{{ c.pk }}"><i class="material-icons" style="font-size: 1.3rem;padding-right: 3px; color: #E54B4B !important;">delete</i></a></td>
+                    <!-- Modal Structure -->
+                  <div id="{{ c.pk }}" class="modal">
+                    <div class="modal-content">
+                      <h4>Delete</h4>
+                      <p>Are You sure you want to delete sub-category {{ c.sub_category_name  }} ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                      <a href="{%url 'productMS:admin-products-delete-subcategory' c.pk%}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+                      
+                    </div>
+                  </div>
+                  <!-- End of Modal -->
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+</section>
+{%endblock content%}

@@ -1,0 +1,74 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% block content%}
+{%include 'admin-nav.html' with active="product"%}
+<section>
+  {% for message in messages %}
+  <div id="messages" class="success__box">{{ message }}</div>
+{%endfor%}
+    <div class="row">
+        <div id="admin" class="col s12">
+          <div class="card material-table">
+            <div class="table-header">
+              <span class="table-title">Products</span>
+              <div class="actions">
+                <a href="{% url 'productMS:admin-products-add' %}" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">add_shopping_cart</i></a>
+                <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+              </div>
+            </div>
+            <table id="datatable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Customer Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Publish Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for u in usr%}
+                <tr>
+                  <td>{{ u.first_name }} {{ u.last_name }}</td>
+                  <td>{{ u.email }}</td>
+                  <td>{{u.username}}</td>
+                  <td>{{ u.date_joined }}</td>
+                  <td>{% if u.customer.online_status %}<p style="color: #2AB269;">Online</p>{% else%}<p style="color: #ACACAC;">Offline</p>{%endif%}</td>
+                  <td><a href="{%url 'userMS:admin-user' u.pk%}"><i class="material-icons" style="font-size: 1.3rem;padding-right: 3px;">visibility</i></a> <a class="modal-trigger" href="#{{ u.pk }}"><i class="material-icons" style="font-size: 1.3rem;padding-right: 3px; color: #E54B4B !important;">delete</i></a> <a class="modal-trigger" href="#{{ u.username }}" style="font-size: 1.1rem; color: #F1B24A;">{%if u.is_active%}Block{% else %}Unblock{%endif%}</a></td>
+                    <!-- Modal Structure -->
+                  <div id="{{ u.pk }}" class="modal">
+                    <div class="modal-content">
+                      <h4>Delete</h4>
+                      <p>Are You sure you want to delete user  {{ u.first_name }} ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                      <a href="{%url 'userMS:admin-user-delete' u.pk%}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+                      
+                    </div>
+                  </div>
+                  <!-- End of Modal -->
+                  <!-- Modal Structure -->
+                  <div id="{{ u.username }}" class="modal">
+                    <div class="modal-content">
+                      <h4>Block</h4>
+                      <p>Are You sure you want to {%if u.is_active%}Block{% else %}Unblock{%endif%} user  {{ u.first_name }} ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                      <a href="{%url 'userMS:admin-user-block' u.pk%}" class="modal-close waves-effect waves-green btn-flat">{%if u.is_active%}Block{% else %}Unblock{%endif%}</a>
+                      
+                    </div>
+                  </div>
+                  <!-- End of Modal -->
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+</section>
+{%endblock content%}

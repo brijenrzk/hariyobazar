@@ -10,7 +10,6 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from .models import Customer, EmailVerification
 from .forms import CreateUserForm, CreateUserForm2, UpdateUserForm, UpdateUserForm2, UpdateAdminForm
-from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from random import randint

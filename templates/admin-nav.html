@@ -8,6 +8,9 @@
       </div></li>
       <li class="nav__item {% if active == 'home' %}nav__item--active{% endif %}"><a href="{% url 'userMS:admin-dashboard' %}"><i class="material-icons">dashboard</i>Dashboard</a></li>
       <li class="nav__item {% if active == 'user' %}nav__item--active{% endif %}"><a href="{% url 'userMS:admin-users-list' %}"><i class="material-icons">person</i>Users</a></li>
+      <li class="nav__item {% if active == 'product' %}nav__item--active{% endif %}"><a href="{% url 'productMS:admin-products-list' %}"><i class="material-icons">shopping_basket</i>Products</a></li>
+      <li class="nav__item {% if active == 'category' %}nav__item--active{% endif %}"><a href="{% url 'productMS:admin-products-category' %}"><i class="material-icons">format_list_bulleted</i>Categories</a></li>
+      <li class="nav__item {% if active == 'subcategory' %}nav__item--active{% endif %}"><a href="{% url 'productMS:admin-products-subcategory' %}"><i class="material-icons">view_comfy</i>Sub Categories</a></li>
     </ul>
     <div class="top__bar">
         <div class="top__elements">

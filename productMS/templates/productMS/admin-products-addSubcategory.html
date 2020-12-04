@@ -1,0 +1,43 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content%}
+{%include 'admin-nav.html'%}
+<section class="profile row col s12 m12">
+  {% for message in messages %}
+  <div id="messages" class="error__box">{{ message }}</div>
+{%endfor%}
+    <div class="profile__right col s12 m12">
+        <h6 class="profile__right_title">Add Category</h4>
+              <div class="s12 m12" style="margin-bottom: 5px;">
+                <a href="{% url 'productMS:admin-products-category' %}" class="sublink">Category</a>
+                <span>/</span>
+                <a href="#!" class="sublink" style="font-weight: 600;">Add Category</a>
+              </div>
+              {%for key, value in form.errors.items%}
+              {% for error in value %}
+                <div class="error__box">{{ error }}</div>
+                {% endfor %}
+              {%endfor%}
+
+       <form class="form" method="POST">
+              {% csrf_token %}
+              <fieldset class="form__inputWrapper">	
+                {{  form.sub_category_name | add_class:"form__input" |attr:"required"|attr:"type:text" }}
+                <label class="form__label">Sub Category Name</label>
+              </fieldset>
+                <fieldset class="form__inputWrapper">
+                  {{form.category | add_class:"form__input browser-default"|attr:"required" }}
+                  <label class="form__label">Category</label>
+                </fieldset>
+              <div class="waves-effect waves-light btn">
+                <input type="submit" class="form__btn " value="Add"/>
+              </div>
+            </div>
+              </form>
+  
+    </div>
+    </section>
+
+
+{%endblock content%}
