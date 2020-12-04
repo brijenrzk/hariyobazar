@@ -6,6 +6,8 @@ from datetime import datetime
 
 class Category(models.Model):
     category_name = models.CharField(max_length = 40)
+    def __str__(self):
+        return self.category_name
    
 class SubCategory(models.Model):
     sub_category_name = models.CharField(max_length = 40)

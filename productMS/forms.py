@@ -8,14 +8,17 @@ class CreateCategoryForm(forms.ModelForm):
         model = Category
         fields = ['category_name']
 
+
+
 class CreateSubCategoryForm(forms.Form):
     sub_category_name = forms.CharField(max_length=80)
-    category = forms.ChoiceField(choices=[(cat.id, cat.category_name) for cat in Category.objects.all()])
+    category = forms.ModelChoiceField(required=True, widget=forms.Select, queryset=Category.objects.all(),initial=0)
     def clean(self):
         cleaned_data = super(CreateSubCategoryForm, self).clean()
         sub_category_name = cleaned_data.get('sub_category_name')
         category = cleaned_data.get('category')
-
+    
+   
 
 class CreateProductForm(forms.Form):
     name = forms.CharField(max_length=80)
