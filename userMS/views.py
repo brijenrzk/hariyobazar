@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from .models import Customer, EmailVerification
+from productMS.models import Product
 from .forms import CreateUserForm, CreateUserForm2, UpdateUserForm, UpdateUserForm2, UpdateAdminForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -193,9 +194,11 @@ def verifyEmail(request):
 def adminDashboard(request):
     cus1 = Customer.objects.all()
     cus = Customer.objects.filter(online_status=1).exclude(user=request.user)
+    prod = Product.objects.all()
     total_customer = cus1.count()
     total_online = cus.count()
-    return render(request, 'userMS/admin/dashboard.html', {"total_customer": total_customer, "total_online": total_online})
+    total_prod = prod.count()
+    return render(request, 'userMS/admin/dashboard.html', {"total_customer": total_customer, "total_online": total_online, "total_prod": total_prod})
 
 
 @admin_only

@@ -9,43 +9,41 @@ class CreateCategoryForm(forms.ModelForm):
         fields = ['category_name']
 
 
-
 class CreateSubCategoryForm(forms.Form):
     sub_category_name = forms.CharField(max_length=80)
-    category = forms.ModelChoiceField(required=True, widget=forms.Select, queryset=Category.objects.all(),initial=0)
+    category = forms.ModelChoiceField(
+        required=True, widget=forms.Select, queryset=Category.objects.all(), initial=0)
+
     def clean(self):
         cleaned_data = super(CreateSubCategoryForm, self).clean()
         sub_category_name = cleaned_data.get('sub_category_name')
         category = cleaned_data.get('category')
-    
-   
-
-class CreateProductForm(forms.Form):
-    name = forms.CharField(max_length=80)
-    description = forms.CharField(
-        max_length=2000,
-        widget=forms.Textarea()
-    )
-    price = forms.IntegerField()
-    category = forms.ChoiceField(
-        choices=[(cat.id, cat.category_name) for cat in Category.objects.all()])
-    condition = forms.CharField(max_length = 20)
-    warranty = forms.IntegerField()
-    premium = forms.BooleanField()
 
 
-    def clean(self):
-        cleaned_data = super(CreateProductForm, self).clean()
-        name = cleaned_data.get('name')
-        description = cleaned_data.get('description')
-        price = cleaned_data.get('price')
-        category = cleaned_data.get('category')
-        condition = cleaned_data.get('condition')
-        warranty = cleaned_data.get('warranty')
-        premium = cleaned_data.get('premium')
+class CreateProductForm(forms.ModelForm):
+
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'price', 'category',
+                  'sub_category', 'condition', 'warranty', 'premium']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['sub_category'].queryset = SubCategory.objects.none()
+
+        if 'category' in self.data:
+            try:
+                category_id = int(self.data.get('category'))
+                self.fields['sub_category'].queryset = SubCategory.objects.filter(
+                    category_id=category_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['sub_category'].queryset = self.instance.category.sub_category.all(
+            )
 
 
-class CreateProductImageForm(forms.Form):
+class CreateProductImageForm(forms.ModelForm):
 
     class Meta:
         model = ProductPhoto

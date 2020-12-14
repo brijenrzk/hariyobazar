@@ -5,7 +5,7 @@
 {%include 'admin-nav.html'%}
 <section class="profile row col s12 m12">
     <div class="profile__right col s12 m12">
-        <h6 class="profile__right_title">Add Products</h4>
+        <h6 class="profile__right_title">Edit Product</h4>
               <div class="s12 m12" style="margin-bottom: 5px;">
                 <a href="{% url 'userMS:admin-users-list' %}" class="sublink">Users</a>
                 <span>/</span>
@@ -69,26 +69,6 @@
                     </div>
           
           
-                    <!-- Image code -->
-                    <div>
-                      <label style="font-size: 14px;">
-                          <span style='color:#4D774E;font-weight:bold'>Attachment Instructions :</span>
-                      </label>
-                      <ul style="font-size: 12px; color: #4A3C26; margin-bottom: 10px;">
-                          <li>
-                              Allowed only files with extension (jpg, png, gif) 
-                          </li>
-                          <li>
-                              Maximum number of allowed files 4 with 3mb for each
-                          </li>
-                      </ul>
-                      <!--To give the control a modern look, I have applied a stylesheet in the parent span.-->
-                      <input type="file" name="ph" multiple accept="image/jpeg, image/png, image/gif,">
-                      
-                  </div>
-          
-                  <div class="row"></div>
-                    <!-- end image code -->
                           <div class="profile__right_wrapDetail row s12 m12" style="margin-bottom: 0; padding-bottom: 0;">
                               <div class="profile__right_detail col s12 m5">
                                 <fieldset class="form__inputWrapper">	
@@ -118,7 +98,7 @@
                 </div>
                 <div class="profile__right_buttons col s12 m4">
                   <div class="waves-effect waves-light btn">
-                    <input type="submit" class="form__btn " value="Add Product"/>
+                    <input type="submit" class="form__btn " value="Update Product"/>
                   </div>
               
               </div>
