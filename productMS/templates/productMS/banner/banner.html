@@ -1,0 +1,72 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% block content%}
+{%include 'admin-nav.html' with active="banner"%}
+<section>
+  {% for message in messages %}
+  <div id="messages" class="success__box">{{ message }}</div>
+{%endfor%}
+    <div class="row">
+        <div id="admin" class="col s12">
+          <div class="card material-table">
+            <div class="table-header">
+              <span class="table-title">Category</span>
+              <div class="actions">
+                <a href="{% url 'productMS:admin-banner-add' %}" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">add</i></a>
+                <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+              </div>
+            </div>
+            <table id="datatable">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Title</th>
+                  <th>Banner Image</th>
+                  <th>Url</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for b in banner%}
+                <tr>
+                  <td>{{ b.id }} </td>
+                  <td>{{ b.name }}</td>
+                  <td><img src="{{ b.photo.url }}" height="40" width="60"/></td>
+                  <td>{{ b.url }}</td>
+                  <td><a href="#{{ b.name }}" class="modal-trigger"><i class="material-icons" style="font-size: 1.3rem;padding-right: 3px;">visibility</i></a><a class="modal-trigger" href="#{{ b.pk }}"><i class="material-icons" style="font-size: 1.3rem;padding-right: 3px; color: #E54B4B !important;">delete</i></a></td>
+                    <!-- Modal Structure -->
+                  <div id="{{ b.pk }}" class="modal">
+                    <div class="modal-content">
+                      <h4>Delete</h4>
+                      <p>Are You sure you want to delete photo {{ b.name  }} ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                      <a href="{%url 'productMS:admin-banner-delete' b.pk%}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+                      
+                    </div>
+                  </div>
+                  <!-- End of Modal -->
+                  <!-- Modal Structure -->
+                  <div id="{{ b.name }}" class="modal">
+                    <div class="modal-content">
+                      <h4>{{ b.name }}</h4>
+                      <img src="{{ b.photo.url }}" height="300" width="100%"/>
+                      <p>Url : {{ b.url }} </p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                      
+                    </div>
+                  </div>
+                  <!-- End of Modal -->
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+</section>
+{%endblock content%}

@@ -25,7 +25,7 @@ SECRET_KEY = '&#^y^#vgx3pug2*0a@+9+!71l7m7z@jce4%otx+w3+!rqqn3bs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.43.6', '127.0.0.1']
 
 
 # Application definition
@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'watermarker',
     'widget_tweaks',
     'userMS.apps.UsermsConfig',
     'productMS.apps.ProductmsConfig',
     'django_cleanup',
     'chartjs',
+
 ]
 
 MIDDLEWARE = [

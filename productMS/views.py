@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import CreateProductForm, CreateProductImageForm, CreateCategoryForm, CreateSubCategoryForm
+from .forms import CreateProductForm, CreateProductImageForm, CreateCategoryForm, CreateSubCategoryForm, CreateBanner
 from django.contrib import messages
-from .models import Category, SubCategory, Product, ProductPhoto
+from .models import Category, SubCategory, Product, ProductPhoto, Banner
+import random
 # Create your views here.
 
 
@@ -34,6 +35,7 @@ def adminProductsAdd(request):
             product.name = productForm.cleaned_data.get('name')
             product.description = productForm.cleaned_data.get('description')
             product.price = productForm.cleaned_data.get('price')
+            product.photo = request.FILES.get('photo')
             product.category = productForm.cleaned_data.get('category')
             product.sub_category = productForm.cleaned_data.get('sub_category')
             product.user = request.user
@@ -49,7 +51,6 @@ def adminProductsAdd(request):
                 pro_photo.product = product
                 pro_photo.product_photo = f
                 pro_photo.save()
-                print(f)
 
             return redirect("productMS:admin-products-list")
 
@@ -182,3 +183,106 @@ def adminProductsEditSubCategory(request, pk=None):
 
     context = {'form': form}
     return render(request, "productMS/admin-products-editSubcategory.html", context)
+
+
+def adminProductsAll(request):
+    prodImg = ProductPhoto.objects.all()
+    context = {'prod': prodImg}
+    return render(request, "productMS/admin-products-all.html", context)
+
+
+# Banner
+
+def adminBanner(request):
+    banner = Banner.objects.all()
+    context = {'banner': banner}
+    return render(request, "productMS/banner/banner.html", context)
+
+
+def adminBannerAdd(request):
+    form = CreateBanner()
+    if request.method == 'POST':
+        form = CreateBanner(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Sucessfully Created')
+            return redirect("productMS:admin-banner")
+
+    context = {'form': form}
+    return render(request, "productMS/banner/banner-add.html", context)
+
+
+def adminBannerDelete(request, pk=None):
+    b = Banner.objects.get(id=pk)
+    b.delete()
+    messages.success(request, 'Banner Deleted')
+    return redirect("productMS:admin-banner")
+
+
+# User side
+
+
+def index(request):
+    # preminum products
+    prodPrem = Product.objects.filter(
+        premium=True).order_by('-publish_date')[0:4]
+    # latest products
+    prodLat = Product.objects.exclude(
+        premium=True).order_by('-publish_date')[0:8]
+    # recommended products
+    prodR = list(Product.objects.filter(premium=False))
+    if(len(prodR) > 2):
+        prodRecom = random.sample(prodR, 2)
+    else:
+        prodRecom = Product.objects.filter(premium=False)[0:4]
+    # Category dropdown
+    cat = Category.objects.all()
+    # Banner
+    ban = Banner.objects.all()
+
+    context = {'prodPrem': prodPrem,
+               'prodLat': prodLat, 'prodRecom': prodRecom, 'cat': cat, 'ban': ban}
+
+    return render(request, "productMS/user/index.html", context)
+
+
+def premiumProducts(request):
+        # preminum products
+    prod = Product.objects.filter(
+        premium=True).order_by('-publish_date')
+    title = "Premium Listings"
+
+    # Category dropdown
+    cat = Category.objects.all()
+
+    context = {'prod': prod, 'title': title, 'cat': cat, }
+
+    return render(request, "productMS/user/product-list.html", context)
+
+
+def latestProducts(request):
+        # preminum products
+    prod = Product.objects.filter(
+        premium=False).order_by('-publish_date')
+    title = "Latest Listings"
+
+    # Category dropdown
+    cat = Category.objects.all()
+
+    context = {'prod': prod, 'title': title, 'cat': cat, }
+
+    return render(request, "productMS/user/product-list.html", context)
+
+
+def categoryProducts(request, slug):
+    prod = Product.objects.filter(
+        category__slug=slug).order_by('-publish_date')
+    c_name = Category.objects.get(slug=slug)
+    title = c_name.category_name
+
+    # Category dropdown
+    cat = Category.objects.all()
+
+    context = {'prod': prod, 'title': title, 'cat': cat, }
+
+    return render(request, "productMS/user/product-list.html", context)

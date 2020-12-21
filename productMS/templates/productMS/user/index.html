@@ -1,0 +1,149 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content%}
+<section class="home">
+ 
+    <div class="row bar">
+      <!-- dropdown -->
+     <div class="dropdown-container col s12 m4">
+       <label for="openDropdown" class="dropdown"><i class="material-icons" style="margin-right: 8px;">format_list_bulleted</i>Categories<i class="material-icons rot">expand_more</i></label>
+       <input type="checkbox" id="openDropdown" hidden>
+       <div class="dropdown-menu">
+         {% for c in cat%}
+         <a href="{% url 'productMS:category-products' c.slug%}"><span>{{ c.category_name }}</span></a>
+         {%endfor%}
+       </div>
+     </div>
+    <!-- end of dropdown -->
+     <div class ="bar__searchbar col s12 m8">
+       <i class="material-icons">search</i>
+       <form method="POST" class="bar__search"> 
+       <input type="search" placeholder="Search For Products"/>
+       <input type="submit" value="Search" />
+     </form>
+     </div>
+   
+    </div>
+   
+    <div class="sliders">
+     <div class="carousel carousel-slider">
+       {%for b in ban%}
+       <a class="carousel-item" href="{{ b.url }}"><img src="{{ b.photo.url }}"></a>
+       {% endfor %}
+     </div>
+    </div>
+   
+    <!-- Listings start-->
+    <div class="titles">
+     <h2>Premium Listings</h2>
+     <a href="{% url 'productMS:premium-products' %}">
+     <h3>See All</h3>
+     <i class="material-icons">arrow_forward</i>
+   </a>
+    </div>
+   
+    <div class="wrapCard row">
+      {% for p in prodPrem%}
+    <!-- Card -->
+    <div class="pCard col s6 m3">
+      <div class="pCard__image">
+        <a href="#" class="pCard__wishlist"><i class="material-icons">turned_in_not</i></a>
+        <a href="#" class="pCard__imageWrap">
+        <img src="{{p.photo.url}}">
+        </a>
+        <div class="pCard__imageTick">
+          <i class="material-icons">check_circle</i>
+          <p>{{p.warranty}} months warranty included</p>
+        </div>
+      </div>
+      <a href="#">
+      <h5>{{p.name}}</h5>
+      <h4>Rs. {{p.price}}</h4>
+     </a>
+    </div>
+    <!-- End of Card -->
+
+    {%endfor%}
+ 
+ 
+     
+   </div>
+   
+    <!-- Listings end-->
+   
+     <!-- Listings start-->
+     <div class="titles" style="margin-top: 60px;">
+       <h2>Latest Listings</h2>
+       <a href="{% url 'productMS:latest-products' %}">
+       <h3>See All</h3>
+       <i class="material-icons">arrow_forward</i>
+     </a>
+      </div>
+     
+      <div class="wrapCard row">
+
+        {%for p in prodLat%}
+      <!-- Card -->
+      <div class="pCard col s6 m3">
+        <div class="pCard__image">
+          <a href="#" class="pCard__wishlist"><i class="material-icons">turned_in_not</i></a>
+          <a href="#" class="pCard__imageWrap">
+          <img src="{{p.photo.url}}">
+          </a>
+        </div>
+        <a href="#">
+        <h5>{{p.name}}</h5>
+        <h4>Rs. {{p.price}}</h4>
+       </a>
+      </div>
+      {%endfor%}
+      <!-- End of Card -->
+      
+       
+     </div>
+     
+      <!-- Listings end-->
+   
+   
+   
+    <!-- Listings start-->
+    <div class="titles" style="margin-top: 60px;">
+     <h2>Recommended For You</h2>
+     <a href="#">
+     <h3>See All</h3>
+     <i class="material-icons">arrow_forward</i>
+   </a>
+    </div>
+   
+    <div class="wrapCard row">
+      {%for p in prodRecom%}
+    <!-- Card -->
+    <div class="pCard col s6 m3">
+      <div class="pCard__image">
+        <a href="#" class="pCard__wishlist"><i class="material-icons">turned_in_not</i></a>
+        <a href="#" class="pCard__imageWrap">
+        <img src="{{p.photo.url}}">
+        </a>
+      </div>
+      <a href="#">
+      <h5>{{ p.name }}</h5>
+      <h4>Rs. {{ p.price }}</h4>
+     </a>
+    </div>
+    <!-- End of Card -->
+    {%endfor%}
+
+ 
+     
+   </div>
+   
+    <!-- Listings end-->
+   
+   
+   
+   
+   
+    
+   </section>
+
+  {%endblock content%}

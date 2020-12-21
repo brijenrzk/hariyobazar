@@ -24,7 +24,7 @@ class CreateProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'category',
+        fields = ['name', 'description', 'price', 'photo', 'category',
                   'sub_category', 'condition', 'warranty', 'premium']
 
     def __init__(self, *args, **kwargs):
@@ -48,3 +48,10 @@ class CreateProductImageForm(forms.ModelForm):
     class Meta:
         model = ProductPhoto
         fields = ['product_photo']
+
+
+class CreateBanner(forms.ModelForm):
+
+    class Meta:
+        model = Banner
+        fields = ['name', 'photo', 'url']

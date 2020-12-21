@@ -807,4 +807,369 @@ input.file-path.validate {
 .file-field span {
   position: absolute;
 }
+
+.home {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.home .row .col {
+  padding: 0;
+  margin: 0;
+}
+
+.bar {
+  margin-top: 30px !important;
+}
+
+.bar__searchbar {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid #4D774E;
+  border-radius: 5px;
+  margin-bottom: 10px !important;
+  height: 50px;
+}
+
+.bar__search {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50px;
+}
+
+.bar__searchbar i {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.bar__searchbar .bar__search input[type=search] {
+  height: 90%;
+  width: 80%;
+  border-bottom: none;
+  margin: 0;
+}
+
+.bar__searchbar .bar__search input[type=search]:focus {
+  outline: none !important;
+  border-bottom: none !important;
+}
+
+.bar__searchbar .bar__search input[type=submit] {
+  height: 100%;
+  width: 20%;
+  background-color: #4D774E;
+  color: #fff;
+  font-family: 'Sf Pro Display';
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.dropdown-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0;
+  padding-right: 20px !important;
+  height: 55px;
+  width: 30%;
+  margin-bottom: 10px !important;
+  padding-bottom: 10px;
+  font-family: 'Sf Pro Display';
+}
+
+.dropdown {
+  background: #4D774E;
+  color: #fff;
+  position: relative;
+  padding: 13px;
+  border-radius: 5px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.rot {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  float: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  font-size: 1.8rem;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.rotate-dropdown-arrow {
+  -webkit-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+}
+
+.dropdown-menu {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius: 5px;
+  margin-top: 8px;
+  width: 100%;
+  padding: 10px;
+  z-index: 1;
+  background: #4D774E;
+  color: #fff;
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+}
+
+.dropdown-menu a {
+  padding: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  color: #fff;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 5px;
+  -webkit-transition: background 0.3s ease;
+  transition: background 0.3s ease;
+}
+
+.dropdown-menu a:last-child {
+  border: none;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(238, 238, 238, 0.363);
+}
+
+#openDropdown:checked + .dropdown-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-animation: openDropDown 0.4s ease;
+          animation: openDropDown 0.4s ease;
+}
+
+@-webkit-keyframes openDropDown {
+  from {
+    -webkit-transform: rotateX(50deg);
+            transform: rotateX(50deg);
+  }
+  to {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+  }
+}
+
+@keyframes openDropDown {
+  from {
+    -webkit-transform: rotateX(50deg);
+            transform: rotateX(50deg);
+  }
+  to {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+  }
+}
+
+.carousel .carousel-item > img {
+  height: 380px;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.titles {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin-top: 35px;
+}
+
+.titles h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 2.2rem;
+  font-family: 'Sf Pro Display';
+  font-weight: 900;
+  border-right: 3px solid #F5F5F5;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+
+.titles a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #000;
+}
+
+.titles a h3 {
+  margin: 0;
+  padding: 0;
+  -webkit-margin-before: 0em;
+          margin-block-start: 0em;
+  -webkit-margin-after: 0em;
+          margin-block-end: 0em;
+  font-size: 1.5rem;
+  font-family: 'Sf Pro Display';
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+.titles a h3:hover {
+  text-decoration: underline;
+}
+
+.wrapCard {
+  margin-top: 25px;
+}
+
+.wrapCard .col {
+  padding: 3px !important;
+}
+
+.pCard {
+  height: auto;
+  width: 22%;
+  border-radius: 5px;
+}
+
+.pCard__image {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  background-color: #FAFAFA;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 5px;
+}
+
+.pCard__imageWrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.pCard__image .pCard__wishlist {
+  position: absolute;
+  color: #F1B24A;
+  right: 20px;
+  top: 20px;
+}
+
+.pCard__image .pCard__wishlist i {
+  font-size: 1.8rem;
+}
+
+.pCard__image .pCard__imageWrap img {
+  width: 90%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.pCard__imageTick {
+  position: absolute;
+  color: #9DC88D;
+  left: 20px;
+  bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 3px 0 3px;
+  border-radius: 5px;
+  background-color: rgba(34, 32, 32, 0.308);
+}
+
+.pCard__imageTick i {
+  font-size: 1rem;
+  padding-right: 5px;
+}
+
+.pCard__imageTick p {
+  font-size: 0.9rem;
+  font-family: 'Sf Pro Display';
+}
+
+.pCard h5 {
+  margin-top: 5px;
+  color: #283747;
+  font-size: 1.3rem;
+  font-family: 'Sf Pro Display';
+}
+
+.pCard h4 {
+  margin-top: 5px;
+  font-size: 1.6rem;
+  color: #000;
+  font-family: 'Sf Pro Display';
+}
 /*# sourceMappingURL=style.css.map */

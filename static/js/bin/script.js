@@ -9,6 +9,16 @@ $(document).ready(function(){
     //   }            
   // });
 
+  $('.carousel.carousel-slider').carousel({
+    fullWidth: true
+
+});
+autoplay();
+function autoplay() {
+    $('.carousel').carousel('next');
+    setTimeout(autoplay, 4500);
+}
+
   $('select').formSelect();
   });
 
@@ -100,3 +110,24 @@ $(function() {
       $(".form__password_warning").hide();
   });
 });
+
+//drop down
+
+const $drowdownArrow = document.querySelector('.rot');
+const $checkbox = document.getElementById('openDropdown');
+const $dropdownMenu = document.querySelector('.dropdown-menu');
+
+$checkbox.addEventListener('change', () => {
+  $drowdownArrow.classList.toggle('rotate-dropdown-arrow');
+});
+
+$dropdownMenu.addEventListener('click', (e) => {
+  $checkbox.checked = false;
+  // setting checked to false won't trigger 'change'
+  // event, manually dispatch an event to rotate
+  // dropdown arrow icon
+  $checkbox.dispatchEvent(new Event('change'));
+});
+
+
+//end of dropdown

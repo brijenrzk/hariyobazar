@@ -47,9 +47,9 @@
     </div>
   </div>
   <div class="nav">
-    <a href="#" class="nav__logo"><img src="{% static 'images/logo.svg' %}" /></a>
+    <a href="{% url 'productMS:index' %}" class="nav__logo"><img src="{% static 'images/logo.svg' %}" /></a>
     <ul class="nav__list">
-      <li class="nav__item nav__item--active"><a href="#">Home</a></li>
+      <li class="nav__item nav__item--active"><a href="{% url 'productMS:index' %}">Home</a></li>
       <div class="nav__cto waves-effect waves-light btn">
         <a href="#" class="">Sell</a>
       </div>

@@ -82,6 +82,8 @@
                               Maximum number of allowed files 4 with 3mb for each
                           </li>
                       </ul>
+                      <p style="font-size: 12px; color: #4A3C26; margin-bottom: 10px;">Cover Picture</p>
+                      {{  productForm.photo| add_class:"form__input" |attr:"required" }}
                       <!--To give the control a modern look, I have applied a stylesheet in the parent span.-->
                       <input type="file" name="ph" multiple accept="image/jpeg, image/png, image/gif,">
                       

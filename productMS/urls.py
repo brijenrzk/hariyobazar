@@ -10,6 +10,8 @@ from . import views
 app_name = "productMS"
 
 urlpatterns = [
+    path('admin-dashboard/products/all',
+         views.adminProductsAll, name="admin-products-all"),
     path('admin-dashboard/products', views.adminProductsList,
          name="admin-products-list"),
     path('admin-dashboard/products/add',
@@ -39,4 +41,21 @@ urlpatterns = [
 
     path('ajax/load-subcat/', views.load_subcat,
          name='ajax_load_subcat'),  # AJAX
+
+
+    # Banner
+    path('admin-dashboard/banner', views.adminBanner, name="admin-banner"),
+    path('admin-dashboard/banner/add',
+         views.adminBannerAdd, name="admin-banner-add"),
+    path('admin-dashboard/banner/delete/<int:pk>/',
+         views.adminBannerDelete, name="admin-banner-delete"),
+
+
+
+    # User side
+
+    path('', views.index, name="index"),
+    path('premium-products', views.premiumProducts, name="premium-products"),
+    path('latest-products', views.latestProducts, name="latest-products"),
+    path('category/<slug:slug>/', views.categoryProducts, name="category-products")
 ]

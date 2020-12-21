@@ -1,0 +1,32 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% load watermark %}
+{% block content%}
+{%include 'admin-nav.html' with active="product"%}
+<section>
+  {% for message in messages %}
+  <div id="messages" class="success__box">{{ message }}</div>
+{%endfor%}
+    <div class="row">
+        <div id="admin" class="col s12">
+          <div class="card material-table">
+            <div class="table-header">
+              <span class="table-title">Products</span>
+              <div class="actions">
+                <a href="{% url 'productMS:admin-products-add' %}" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">add_shopping_cart</i></a>
+                <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+              </div>
+            </div>
+
+            {% for p in prod%}
+
+            <img src="{{p.product_photo.url |watermark:"hariyo,position=br,opacity=35"}}" height="180" width="180"/>
+
+            {%endfor%}
+
+          </div>
+        </div>
+      </div>
+
+</section>
+{%endblock content%}
