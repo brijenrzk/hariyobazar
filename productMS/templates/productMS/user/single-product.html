@@ -1,0 +1,168 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content%}
+
+<section class="home">
+
+ 
+    {%include 'search.html'%}
+     
+     
+     <div class="sinPage__top row">
+     <!-- images -->
+     <div class="item__img-wrap col s12 m8">
+       <div class="item__main-img">
+         <img src="{{ prod.photo.url }}" onclick="openModal();currentSlide(1)" />
+       </div>
+       <div class="item__side-img">
+        {% for ph in prodImg %}
+         <img src="{{ ph.product_photo.url }}" onclick="openModal();currentSlide(1)" />
+        {%endfor%}
+       </div>
+     </div>
+     <!-- end if image -->
+     
+     <div class="sinPage__topRight col s12 m3 push-m1">
+       <div class="sinPage__price">
+         <span id="thumbs" data-value="{{ prod.id }}"></span>
+         {% if fav%}
+         <a href="" id="watchlist" value="{{ prod.id }}" class="sinPage__wishlist"><i class="material-icons" id="fav">turned_in</i></a>
+         {%else%}
+         <a href="" id="watchlist" value="{{ prod.id }}" class="sinPage__wishlist"><i class="material-icons" id="fav">turned_in_not</i></a>
+         {%endif%}
+         <div class="sinPage__priceTop">
+           <h4>{{ prod.name }}</h4>
+           <h3>Rs.{{ prod.price }}</h3>
+         </div>
+         <div class="sinPage__priceDown">
+           <p><i class="material-icons">remove_red_eye</i> {{ prod.views }} views</p>
+           <p>Posted on {{ prod.publish_date }}</p>
+         </div>
+     
+       </div>
+       <div class="sinPage__seller">
+         <div class="sinPage__sellerTop">
+           <div class="sinPage__sellerTopLeft">
+             <h4>Seller</h4>
+           </div>
+           <div class="sinPage__sellerTopRight">
+             <p>{{ prod.user.first_name }}</p>
+             <img src="{{prod.user.customer.photo.url}}"/>
+           </div>
+         </div>
+         <div class="sinPage__sellerDown">
+           <p>{{ prod.user.email }}</p>
+           {% if prod.show_contact %}
+           <p>{{ prod.user.customer.contact }}</p>
+           {%else%}
+           <p>Contact Number not provided</p>
+           {%endif%}
+         </div>
+       </div>
+     
+     
+     </div>
+     
+     </div>
+     
+     <div class="sinPage__btm row">
+       <div class="sinPage__btmLeft col s12 m8">
+         <div class="sinPage__btmDes">
+             <h4>Description</h4>
+             <p>{{ prod.description }}</p>
+         </div>
+         <div class="sinPage__btmQue">
+           
+           <h4>Ask Seller</h4>
+           {%if not user.is_authenticated%}
+           <p><a href="{% url 'userMS:login' %}?next={{request.path}}">Login</a> to ask seller</p>
+           {%else%}
+           <div class ="sinPage__askbar">
+             <form method="POST"> 
+              {% csrf_token %}
+             <input type="text" name="question" placeholder="Ask Question?"/>
+             <input type="submit" value="ASK" />
+           </form>
+        
+           </div>
+           {%endif%}
+            {% for q in questions %}
+           <p>{{ q.user.first_name }} : {{ q.question }}</p>
+           {%if q.answer%}
+           <p><span>Seller :</span> {{ q.answer }}</p>
+           {% endif %}
+           {% endfor %}
+     
+     
+         </div>
+       </div>
+       <div class="sinPage__btmRight col s12 m3 push-m1">
+     
+       </div>
+     </div>
+     
+     
+     
+     
+     
+     
+     
+     
+     <!-- The Modal -->
+     <div id="myModal" class="modal mdl">
+       <span class="close cursor" onclick="closeModal()">&times;</span>
+       <div class="modal-content mdl-content">
+         <div class="mySlides">
+           <img src="{{ prod.photo.url }}" style="width:100%" />
+         </div>
+     
+         {% for ph in prodImg %}
+         <div class="mySlides">
+           <img
+             src="{{ ph.product_photo.url }}"
+             style="width:100%"
+           />
+         </div>
+
+         {%endfor%}
+     
+     
+         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+         <a class="next" onclick="plusSlides(1)">&#10095;</a>
+       </div>
+     </div>
+     
+     <!-- End of model -->
+
+
+</section>
+
+<script>
+   $(document).on('click', '#watchlist', function (e) {
+     var postid = document.getElementById('thumbs').getAttribute('data-value');
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '{% url "productMS:favourite_add" %}',
+      data: {
+        postid: postid,
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function (json) {
+        console.log(json)
+        if(json['result'] == 1){
+          $("#fav").html("turned_in");
+        }else{
+        $("#fav").html("turned_in_not");
+        }
+      },
+      error: function (xhr, errmsg, err) {
+
+      }
+    });
+  })
+</script>
+
+
+{%endblock content%}

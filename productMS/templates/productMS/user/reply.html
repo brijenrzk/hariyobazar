@@ -1,0 +1,59 @@
+{%extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content%}
+
+
+<section class="profile row col s12 m12">
+    {%include 'user-dashboard-sidebar.html'%}
+    <div class="profile__right col s12 m9">
+        <h6 class="profile__right_title">Reply</h4>
+        <div class="profile__right_wrap row col s12 m12">
+
+   
+            <form class="form row col s12" method="POST" action="" enctype="multipart/form-data" id="productForm" data-cities-url="{% url 'productMS:ajax_load_subcat' %}">
+                {% csrf_token %}
+                <div class="profile__right_wrap row col s12 m12">
+                    <div class="profile__right_details col s12 m9">
+                        <div class="profile__right_wrapDetail row s12 m12" style="margin-bottom: 0; padding-bottom: 0;">
+                            <div class="profile__right_detail col s12 m8">
+                                <div class="ads__contentTop">
+                                    <h3 style="margin-bottom: 20px;">Comment: {{ ques.question }}</h3>
+                                  </div>
+                              <fieldset class="form__inputWrapper">	
+                                {{  replyForm.answer| add_class:"form__input" |attr:"type:text" }}
+                                <label class="form__label">Reply</label>
+                              </fieldset>
+                            </div>
+                            <div class="col m1"></div>
+                        </div>
+            </div>
+                     
+                </div>
+                <div class="profile__right_buttons col s12 m4">
+                  <div class="waves-effect waves-light btn">
+                    <input type="submit" class="form__btn " value="Reply Comment"/>
+                  </div>
+              
+              </div>
+            
+            
+            
+            </form>
+     
+
+
+           
+          </div>
+   
+
+
+
+    
+    </div>
+</section>
+
+
+
+
+{%endblock content%}

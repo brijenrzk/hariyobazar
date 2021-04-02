@@ -1,0 +1,71 @@
+.ads__wrap{
+    height: 8rem;
+    border: 1px solid #CECECE;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.ads__contentWrap{
+    height: 100%;
+    padding : 5px !important;
+    padding-left: 15px !important;
+    display: flex;
+
+}
+
+.ads__contentWrap img{
+    height: 90%;
+    border-radius: 5px;
+    align-self: center;
+}
+
+.ads__content{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-left: 15px;
+}
+.ads__contentTop{
+
+}
+.ads__contentTop h2{
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 1.6rem;
+    font-family: 'Sf Pro Display';
+    font-weight: bold;
+
+}
+.ads__contentTop h3{
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+    font-family: 'Sf Pro Display';
+
+}
+.ads__contentDown{
+    display: flex;
+    flex-direction: row;
+
+}
+.ads__contentDown p{
+    font-size: 0.9rem;
+    font-family: 'Sf Pro Display';
+    font-weight: 100;
+    padding-right: 20px;
+}
+
+.ads__buttonWrap{
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+.ads__buttonWrap .btn{
+    height: 100% !important;
+    width: 80px;
+    line-height: 8.5;
+}
+
+

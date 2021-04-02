@@ -29,6 +29,7 @@ class SubCategory(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=80)
+    slug = models.SlugField(default="")
     description = models.TextField()
     price = models.DecimalField(max_digits=9, decimal_places=0)
     photo = models.ImageField(upload_to='product_photos/', null=True)
@@ -42,6 +43,14 @@ class Product(models.Model):
     premium = models.BooleanField(default=0)
     views = models.IntegerField(null=True, default=0)
     publish_date = models.DateTimeField(default=datetime.now)
+    show_contact = models.BooleanField(default=0)
+    favourites = models.ManyToManyField(
+        User, related_name='favourite', default=None, blank=True)
+
+    def save(self, *args, **kwargs):
+        value = self.name
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
 
 
 class ProductPhoto(models.Model):
@@ -53,12 +62,16 @@ class ProductPhoto(models.Model):
         super().delete(*args, **kwargs)
 
 
-class Wishlist(models.Model):
-    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
-
-
 class Banner(models.Model):
     name = models.CharField(max_length=80, null=True, unique=True)
     photo = models.ImageField(upload_to='banner_photos/', null=True)
     url = models.CharField(max_length=200, default="#", null=True)
+
+
+class Questions(models.Model):
+    question = models.TextField()
+    answer = models.TextField(null=True, default="")
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, null=True, on_delete=models.CASCADE, related_name='ques')
+    publish_date = models.DateTimeField(default=datetime.now)

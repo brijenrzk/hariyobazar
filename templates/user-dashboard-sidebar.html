@@ -1,0 +1,7 @@
+<div class="profile__left col s12 m3">
+    <h6 class="profile__left_title">Manage My Account</h6>
+        <a href="{% url 'userMS:dashboard' %}" class="sublink profile__left_link active">My Profile</a>
+    <h6 class="profile__left_title">Manage Ads</h6>
+        <a href="{% url 'productMS:myAds' %}" class="sublink profile__left_link active">My Ads</a>
+        <a href="{% url 'productMS:comments' %}" class="sublink profile__left_link active">Comments ({{ cmt }})</a>
+</div>

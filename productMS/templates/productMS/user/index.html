@@ -3,27 +3,7 @@
 {% block content%}
 <section class="home">
  
-    <div class="row bar">
-      <!-- dropdown -->
-     <div class="dropdown-container col s12 m4">
-       <label for="openDropdown" class="dropdown"><i class="material-icons" style="margin-right: 8px;">format_list_bulleted</i>Categories<i class="material-icons rot">expand_more</i></label>
-       <input type="checkbox" id="openDropdown" hidden>
-       <div class="dropdown-menu">
-         {% for c in cat%}
-         <a href="{% url 'productMS:category-products' c.slug%}"><span>{{ c.category_name }}</span></a>
-         {%endfor%}
-       </div>
-     </div>
-    <!-- end of dropdown -->
-     <div class ="bar__searchbar col s12 m8">
-       <i class="material-icons">search</i>
-       <form method="POST" class="bar__search"> 
-       <input type="search" placeholder="Search For Products"/>
-       <input type="submit" value="Search" />
-     </form>
-     </div>
-   
-    </div>
+  {%include 'search.html'%}
    
     <div class="sliders">
      <div class="carousel carousel-slider">
@@ -48,7 +28,7 @@
     <div class="pCard col s6 m3">
       <div class="pCard__image">
         <a href="#" class="pCard__wishlist"><i class="material-icons">turned_in_not</i></a>
-        <a href="#" class="pCard__imageWrap">
+        <a href="{% url 'productMS:single-product' p.slug %}" class="pCard__imageWrap">
         <img src="{{p.photo.url}}">
         </a>
         <div class="pCard__imageTick">
@@ -56,7 +36,7 @@
           <p>{{p.warranty}} months warranty included</p>
         </div>
       </div>
-      <a href="#">
+      <a href="{% url 'productMS:single-product' p.slug %}">
       <h5>{{p.name}}</h5>
       <h4>Rs. {{p.price}}</h4>
      </a>
@@ -87,11 +67,11 @@
       <div class="pCard col s6 m3">
         <div class="pCard__image">
           <a href="#" class="pCard__wishlist"><i class="material-icons">turned_in_not</i></a>
-          <a href="#" class="pCard__imageWrap">
+          <a href="{% url 'productMS:single-product' p.slug %}" class="pCard__imageWrap">
           <img src="{{p.photo.url}}">
           </a>
         </div>
-        <a href="#">
+        <a href="{% url 'productMS:single-product' p.slug %}">
         <h5>{{p.name}}</h5>
         <h4>Rs. {{p.price}}</h4>
        </a>
@@ -121,11 +101,11 @@
     <div class="pCard col s6 m3">
       <div class="pCard__image">
         <a href="#" class="pCard__wishlist"><i class="material-icons">turned_in_not</i></a>
-        <a href="#" class="pCard__imageWrap">
+        <a href="{% url 'productMS:single-product' p.slug %}" class="pCard__imageWrap">
         <img src="{{p.photo.url}}">
         </a>
       </div>
-      <a href="#">
+      <a href="{% url 'productMS:single-product' p.slug %}">
       <h5>{{ p.name }}</h5>
       <h4>Rs. {{ p.price }}</h4>
      </a>

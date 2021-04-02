@@ -25,7 +25,7 @@ SECRET_KEY = '&#^y^#vgx3pug2*0a@+9+!71l7m7z@jce4%otx+w3+!rqqn3bs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.43.6', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.1.39', '127.0.0.1']
 
 
 # Application definition
@@ -85,12 +85,19 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hariyo_bazar',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

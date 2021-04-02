@@ -1,9 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse
-from .forms import CreateProductForm, CreateProductImageForm, CreateCategoryForm, CreateSubCategoryForm, CreateBanner
+from .forms import CreateProductForm, CreateProductImageForm, CreateCategoryForm, CreateSubCategoryForm, CreateBanner, PostProductForm, PostEditProductForm, ReplyForm
 from django.contrib import messages
-from .models import Category, SubCategory, Product, ProductPhoto, Banner
+from .models import Category, SubCategory, Product, ProductPhoto, Banner, Questions
 import random
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.list import ListView
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -187,7 +192,8 @@ def adminProductsEditSubCategory(request, pk=None):
 
 def adminProductsAll(request):
     prodImg = ProductPhoto.objects.all()
-    context = {'prod': prodImg}
+    prods = Product.objects.all()
+    context = {'prod': prodImg, 'prods': prods}
     return render(request, "productMS/admin-products-all.html", context)
 
 
@@ -246,43 +252,283 @@ def index(request):
     return render(request, "productMS/user/index.html", context)
 
 
-def premiumProducts(request):
-        # preminum products
-    prod = Product.objects.filter(
-        premium=True).order_by('-publish_date')
-    title = "Premium Listings"
+# def premiumProducts(request):
+#     # preminum products
+#     prod = Product.objects.filter(
+#         premium=True).order_by('-publish_date')
+#     title = "Premium Listings"
 
-    # Category dropdown
+#     # Category dropdown
+#     cat = Category.objects.all()
+
+#     context = {'prod': prod, 'title': title, 'cat': cat, }
+
+#     return render(request, "productMS/user/product-list.html", context)
+
+# premium product
+class PremiumView(ListView):
+    model = Product
+    paginate_by = 4
+    queryset = Product.objects.filter(premium=True).order_by('-publish_date')
+    context_object_name = 'prod'
+    template_name = 'productMS/user/product-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cat'] = Category.objects.all()
+        context['title'] = "Premium Listings"
+        return context
+
+
+# latest product
+# def latestProducts(request):
+#         # preminum products
+#     prod = Product.objects.filter(
+#         premium=False).order_by('-publish_date')
+#     title = "Latest Listings"
+
+#     # Category dropdown
+#     cat = Category.objects.all()
+
+#     context = {'prod': prod, 'title': title, 'cat': cat, }
+
+#     return render(request, "productMS/user/product-list.html", context)
+
+
+class LatestView(ListView):
+    model = Product
+    paginate_by = 4
+    queryset = Product.objects.filter(premium=False).order_by('-publish_date')
+    context_object_name = 'prod'
+    template_name = 'productMS/user/product-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cat'] = Category.objects.all()
+        context['title'] = "Latest Listings"
+        return context
+
+# Category
+
+
+# def categoryProducts(request, slug):
+#     prod = Product.objects.filter(
+#         category__slug=slug).order_by('-publish_date')
+#     c_name = Category.objects.get(slug=slug)
+#     title = c_name.category_name
+
+#     # Category dropdown
+#     cat = Category.objects.all()
+
+#     context = {'prod': prod, 'title': title, 'cat': cat, }
+
+#     return render(request, "productMS/user/product-list.html", context)
+
+
+class CategoryView(ListView):
+    model = Product
+    paginate_by = 4
+    context_object_name = 'prod'
+    template_name = 'productMS/user/product-list.html'
+
+    def get_queryset(self, **kwargs):
+        return Product.objects.filter(category__slug=self.kwargs['slug']).order_by('-publish_date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cat'] = Category.objects.all()
+        c_name = Category.objects.get(slug=self.kwargs['slug'])
+        context['title'] = c_name
+        return context
+
+
+# Search
+def searchProduct(request):
+     # Category dropdown
     cat = Category.objects.all()
-
+    title = "Search Results"
+    query = ""
+    context = {}
+    if request.GET:
+        query = request.GET['q']
+    prod = get_data_queryset(query)
     context = {'prod': prod, 'title': title, 'cat': cat, }
-
+    #context['prod'] = prod
     return render(request, "productMS/user/product-list.html", context)
 
 
-def latestProducts(request):
-        # preminum products
-    prod = Product.objects.filter(
-        premium=False).order_by('-publish_date')
-    title = "Latest Listings"
+# class SearchView(ListView):
+#     model = Product
+#     paginate_by = 4
+#     context_object_name = 'prod'
+#     template_name = 'productMS/user/product-list.html'
 
-    # Category dropdown
+#     def get_queryset(self):  # new
+#         query = self.request.GET.get('q')
+#         object_list = Product.objects.filter(
+#             Q(name__icontains=query)
+#         )
+#         return object_list
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['cat'] = Category.objects.all()
+#         context['title'] = "Serach Results"
+#         return context
+
+
+def get_data_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    # if len(queries) == 0:
+    #     print("nothing")
+
+    for q in queries:
+        products = Product.objects.filter(
+            Q(name__icontains=q)
+        )
+
+        for p in products:
+            queryset.append(p)
+    queryset = queryset[0:30]
+
+    return (set(queryset))
+
+
+def singleProduct(request, slug):
     cat = Category.objects.all()
+    prod = Product.objects.get(slug=slug)
+    prodImg = ProductPhoto.objects.filter(product=prod)
+    fav = bool
 
-    context = {'prod': prod, 'title': title, 'cat': cat, }
+    if prod.favourites.filter(id=request.user.id).exists():
+        fav = True
+    view = prod.views
+    prod.views = view + 1
+    prod.save()
 
-    return render(request, "productMS/user/product-list.html", context)
+    if request.method == 'POST':
+        askQuestions = Questions()
+        askQuestions.question = request.POST['question']
+        askQuestions.user = request.user
+        askQuestions.product = prod
+
+        askQuestions.save()
+
+    questions = Questions.objects.filter(product=prod)
+    #question = {}
+    context = {'prod': prod, 'prodImg': prodImg,
+               'cat': cat, 'questions': questions, 'fav': fav}
+    return render(request, "productMS/user/single-product.html", context)
 
 
-def categoryProducts(request, slug):
-    prod = Product.objects.filter(
-        category__slug=slug).order_by('-publish_date')
-    c_name = Category.objects.get(slug=slug)
-    title = c_name.category_name
+@login_required(login_url='userMS:login')
+def sell(request):
+    productForm = PostProductForm()
+    productImageForm = CreateProductImageForm()
 
-    # Category dropdown
-    cat = Category.objects.all()
+    if request.method == 'POST':
+        productForm = PostProductForm(request.POST, request.FILES)
+        if productForm.is_valid():
+            product = Product()
+            product.name = productForm.cleaned_data.get('name')
+            product.description = productForm.cleaned_data.get('description')
+            product.price = productForm.cleaned_data.get('price')
+            product.photo = request.FILES.get('photo')
+            product.category = productForm.cleaned_data.get('category')
+            product.sub_category = productForm.cleaned_data.get('sub_category')
+            product.user = request.user
+            product.show_contact = productForm.cleaned_data.get('show_contact')
+            product.save()
 
-    context = {'prod': prod, 'title': title, 'cat': cat, }
+            fil = request.FILES.getlist('ph')
 
-    return render(request, "productMS/user/product-list.html", context)
+            for f in fil:
+                pro_photo = ProductPhoto()
+                pro_photo.product = product
+                pro_photo.product_photo = f
+                pro_photo.save()
+            return redirect("productMS:index")
+        else:
+            print("fail")
+
+    context = {'productForm': productForm,
+               'productImageForm': productImageForm}
+    return render(request, "productMS/user/sell.html", context)
+
+
+def myAds(request):
+    prod = Product.objects.filter(user=request.user).prefetch_related('ques')
+    productForm = PostEditProductForm()
+    cmt = Questions.objects.filter(
+        answer__exact='').count()
+    context = {'prod': prod, 'productForm': productForm, 'cmt': cmt}
+    return render(request, 'productMS/user/ads.html', context)
+
+
+def deleteMyAds(request, pk=None):
+    prod = Product.objects.get(id=pk)
+    prod.delete()
+    return redirect("productMS:myAds")
+
+
+def comments(request):
+    prod = Product.objects.filter(user=request.user).prefetch_related('ques')
+
+    cmt = Questions.objects.filter(
+        answer__exact='').count()
+
+    context = {'prod': prod, 'cmt': cmt}
+    return render(request, 'productMS/user/comments.html', context)
+
+
+def postEditProducts(request, pk=None):
+    prod = Product.objects.get(id=pk)
+    productForm = PostProductForm(instance=prod)
+    cmt = Questions.objects.filter(
+        answer__exact='').count()
+
+    if request.method == 'POST':
+        productForm = PostProductForm(
+            request.POST, instance=prod)
+        if productForm.is_valid():
+            productForm.save()
+            messages.success(request, 'Sucessfully Updated')
+            return redirect("productMS:myAds")
+    context = {'productForm': productForm, 'cmt': cmt}
+    return render(request, "productMS/user/ads-edit.html", context)
+
+
+def reply(request, pk=None):
+    ques = Questions.objects.get(id=pk)
+    replyForm = ReplyForm(instance=ques)
+    cmt = Questions.objects.filter(
+        answer__exact='').count()
+
+    if request.method == 'POST':
+        replyForm = ReplyForm(request.POST, instance=ques)
+        if replyForm.is_valid():
+            replyForm.save()
+            messages.success(request, 'Comment Replied')
+            return redirect("productMS:comments")
+
+    context = {'replyForm': replyForm, 'ques': ques, 'cmt': cmt}
+    return render(request, "productMS/user/reply.html", context)
+
+
+def favourite_add(request):
+    if request.POST.get('action') == 'post':
+        id = int(request.POST.get('postid'))
+        result = ''
+        prod = Product.objects.get(id=id)
+        if prod.favourites.filter(id=request.user.id).exists():
+            prod.favourites.remove(request.user)
+            prod.save()
+            result = 0
+        else:
+            prod.favourites.add(request.user)
+            prod.save()
+            result = 1
+        print(result)
+
+    return JsonResponse({'result': result, })

@@ -25,7 +25,29 @@ class CreateProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'description', 'price', 'photo', 'category',
-                  'sub_category', 'condition', 'warranty', 'premium']
+                  'sub_category', 'condition', 'warranty', 'premium', 'show_contact']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['sub_category'].queryset = SubCategory.objects.none()
+
+        if 'category' in self.data:
+            try:
+                category_id = int(self.data.get('category'))
+                self.fields['sub_category'].queryset = SubCategory.objects.filter(
+                    category_id=category_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['sub_category'].queryset = self.instance.category.sub_category.all(
+            )
+
+
+class PostProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'price', 'photo', 'category',
+                  'sub_category', 'show_contact']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -55,3 +77,15 @@ class CreateBanner(forms.ModelForm):
     class Meta:
         model = Banner
         fields = ['name', 'photo', 'url']
+
+
+class PostEditProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'price', 'show_contact']
+
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Questions
+        fields = ['answer']

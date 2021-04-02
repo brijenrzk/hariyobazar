@@ -24,6 +24,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.db.models import Count
 from django.db.models.functions import TruncDay
+from productMS.models import Questions
 
 # Create your views here.
 
@@ -47,7 +48,7 @@ def signIn(request):
                     cus.online_status = 1
                     cus.save()
                 # print()
-                return redirect('userMS:dashboard')
+                return redirect('productMS:index')
             else:
                 messages.info(request, 'Username or Password is incorrect.')
 
@@ -95,7 +96,9 @@ def signout(request):
 @user_only
 @login_required(login_url='userMS:login')
 def dashboard(request):
-    return render(request, "userMS/dashboard.html", {"usr": User.objects.get(pk=request.user.id)})
+    cmt = Questions.objects.filter(
+        answer__exact='').count()
+    return render(request, "userMS/dashboard.html", {"usr": User.objects.get(pk=request.user.id), 'cmt': cmt})
 
 
 @user_only

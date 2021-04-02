@@ -1,0 +1,22 @@
+{% load static %}
+<div class="row bar">
+    <!-- dropdown -->
+   <div class="dropdown-container col s12 m4">
+     <label for="openDropdown" class="dropdown"><i class="material-icons" style="margin-right: 8px;">format_list_bulleted</i>Categories<i class="material-icons rot">expand_more</i></label>
+     <input type="checkbox" id="openDropdown" hidden>
+     <div class="dropdown-menu">
+       {% for c in cat%}
+       <a href="{% url 'productMS:category-products' c.slug%}"><span>{{ c.category_name }}</span></a>
+       {%endfor%}
+     </div>
+   </div>
+  <!-- end of dropdown -->
+   <div class ="bar__searchbar col s12 m8">
+     <i class="material-icons">search</i>
+     <form method="GET" class="bar__search" action="{%url 'productMS:search-products'%}"> 
+     <input type="search" name="q" placeholder="Search For Products"/>
+     <input type="submit" value="Search" />
+   </form>
+   </div>
+ 
+  </div>

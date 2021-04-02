@@ -1,0 +1,77 @@
+{%extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content%}
+<section class="profile row col s12 m12">
+    {%include 'user-dashboard-sidebar.html'%}
+    <div class="profile__right col s12 m9">
+        <h6 class="profile__right_title">My Ads</h4>
+        <div class="profile__right_wrap row col s12 m12">
+
+            <!-- Loop -->
+            {%for p in prod%}
+          <div class="ads__wrap row col s12 m12">
+            <div class="ads__contentWrap col s12 m8">
+              <img src="{{p.photo.url}}" />
+              <div class="ads__content">
+                <div class="ads__contentTop">
+                <h2>{{ p.name }}</h2>
+                <h3>Rs.{{ p.price }}</h3>
+              </div>
+              <div class="ads__contentDown">
+                <p>Posted on {{ p.publish_date }}</p>
+                <p>Views : {{ p.views }}</p>
+                <!-- {%for c in p.ques.all %}
+                <p>Comment : {c}</p>
+                {%endfor%} -->
+                <p>Comments : {{p.ques.all.count}}</p>
+              </div>
+              </div>
+            </div>
+            <div class="ads__buttonWrap col s12 m4">
+    
+       
+                <a style="background-color: #4D774E;" class="waves-effect waves-light btn" href="{% url 'productMS:single-product' p.slug %}">View</a>
+                <a style="background-color: #F1B24A;" class="modal-trigger waves-effect waves-light btn" href="{%url 'productMS:editMyAds' p.pk%}">Edit</a>
+                <a style="background-color: #DC3544;" class="modal-trigger waves-effect waves-light btn" href="#{{ p.pk }}">Delete</a>
+    
+    
+            </div>
+          </div>
+
+
+            <!-- Modal Structure -->
+            <div id="{{ p.pk }}" class="modal">
+                <div class="modal-content">
+                    <h4>Delete</h4>
+                    <p>Are You sure you want to delete product  {{ p.name }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                    <a href="{%url 'productMS:deleteMyAds' p.pk%}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+                    
+                </div>
+                </div>
+                <!-- End of Modal -->
+
+
+
+
+
+
+          {%endfor%}
+          <!-- endloop -->
+
+
+
+        </div>
+    
+    </div>
+    </section>
+
+
+              
+   
+
+
+{%endblock content%}

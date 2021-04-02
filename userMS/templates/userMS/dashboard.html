@@ -2,11 +2,7 @@
 {% load static %}
 {% block content%}
 <section class="profile row col s12 m12">
-    <div class="profile__left col s12 m3">
-        <h6 class="profile__left_title">Manage My Account</h6>
-            <a class="sublink profile__left_link active">My Profile</a>
-            
-    </div>
+    {%include 'user-dashboard-sidebar.html'%}
     <div class="profile__right col s12 m9">
         <h6 class="profile__right_title">My Profile | {{ user.username }}</h6>
         {% for message in messages %}
