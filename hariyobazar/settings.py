@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'userMS.apps.UsermsConfig',
     'productMS.apps.ProductmsConfig',
+    'blogs.apps.BlogsConfig',
     'django_cleanup',
     'chartjs',
+    'ckeditor',
 
 ]
 
@@ -61,7 +63,7 @@ ROOT_URLCONF = 'hariyobazar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'userMS/templates'), os.path.join(BASE_DIR, 'productMS/templates'), ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'userMS/templates'), os.path.join(BASE_DIR, 'productMS/templates'), os.path.join(BASE_DIR, 'blogs/templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

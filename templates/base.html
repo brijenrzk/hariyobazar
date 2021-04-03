@@ -46,7 +46,13 @@
     </div>
     <div class="top__right">
       <a class="sublink" href="#"> Help & Contact</a>
-      <a class="sublink" href="#"> Watchlist</a>
+      <a class="sublink" href="{% url 'blogs:blog' %}"> Blogs</a>
+      {%if user.is_authenticated%}
+      <a class="sublink" href="{% url 'productMS:watchlist' %}"> Watchlist</a>
+      {%else%}
+      <a class="sublink" href="{% url 'userMS:login' %}?next={{request.path}}"> Watchlist</a>
+      {%endif%}
+
     </div>
   </div>
   <div class="nav">

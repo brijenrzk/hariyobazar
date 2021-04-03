@@ -1,0 +1,91 @@
+{%extends 'admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content%}
+{%include 'admin-nav.html'%}
+<section class="profile row col s12 m12">
+    <div class="profile__right col s12 m12">
+        <h6 class="profile__right_title">Add Blogs</h4>
+              <div class="s12 m12" style="margin-bottom: 5px;">
+                <a href="{% url 'userMS:admin-users-list' %}" class="sublink">Blogs</a>
+                <span>/</span>
+                <a href="#!" class="sublink" style="font-weight: 600;">Add Blogs</a>
+              </div>
+              {%for key, value in form.errors.items%}
+              {% for error in value %}
+                <div class="error__box">{{ error }}</div>
+                {% endfor %}
+              {%endfor%}
+              {%for key, value in form2.errors.items%}
+              {% for error in value %}
+                <div class="error__box">{{ error }}</div>
+                {% endfor %}
+              {%endfor%}
+              <form class="form row col s12" method="POST" action="" enctype="multipart/form-data" id="productForm" data-cities-url="{% url 'productMS:ajax_load_subcat' %}">
+                {% csrf_token %}
+                <div class="profile__right_wrap row col s12 m12">
+                    <div class="profile__right_details col s12 m9">
+                        <div class="profile__right_wrapDetail row s12 m12" style="margin-bottom: 0; padding-bottom: 0;">
+                            <div class="profile__right_detail col s12 m8">
+                              <fieldset class="form__inputWrapper">	
+                                {{  blogForm.title| add_class:"form__input" |attr:"type:text" }}
+                                <label class="form__label">Title</label>
+                              </fieldset>
+                            </div>
+                            <div class="col m1"></div>
+                        </div>
+                        {{ blogForm.media }}
+          
+                        {{ blogForm.description }}
+                        
+                      <div class="profile__right_wrapDetail row s12 m12">
+                        <div class="profile__right_detail col s12 m11">
+                          
+                        </div>
+                    </div>
+          
+          
+                    <!-- Image code -->
+                    <div>
+                      <label style="font-size: 14px;">
+                          <span style='color:#4D774E;font-weight:bold'>Attachment Instructions :</span>
+                      </label>
+                      <ul style="font-size: 12px; color: #4A3C26; margin-bottom: 10px;">
+                          <li>
+                              Allowed only files with extension (jpg, png, gif) 
+                          </li>
+                          <li>
+                              Maximum number of allowed files 4 with 3mb for each
+                          </li>
+                      </ul>
+                      <p style="font-size: 12px; color: #4A3C26; margin-bottom: 10px;">Cover Picture</p>
+                      {{  blogForm.photo| add_class:"form__input" |attr:"required" }}
+                      
+                  </div>
+          
+                  <div class="row"></div>
+                    <!-- end image code -->
+                    
+          
+          
+          
+            </div>
+                     
+                </div>
+                <div class="profile__right_buttons col s12 m4">
+                  <div class="waves-effect waves-light btn">
+                    <input type="submit" class="form__btn " value="Post"/>
+                  </div>
+              
+              </div>
+            
+            
+            
+            </form>
+    </div>
+    </section>
+
+    
+    
+
+{%endblock content%}

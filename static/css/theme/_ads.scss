@@ -26,8 +26,23 @@
     padding-left: 15px;
 }
 .ads__contentTop{
-
+    display: flex;
+    flex-direction: row;
 }
+.ads__wrapSold{
+    margin-left: 20px;
+    margin-top: 8px;
+}
+.ads__wrapSold a{
+    text-decoration: none;
+    background-color: $link-color;
+    color: black;
+    border-radius: 5px;
+    padding: 8px 10px 8px 10px;
+    font-size: 0.8rem;
+    font-family: 'Sf Pro Display';
+}
+
 .ads__contentTop h2{
     margin: 0;
     padding: 0;

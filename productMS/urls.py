@@ -61,7 +61,8 @@ urlpatterns = [
     path('my-ads/delete/<int:pk>', views.deleteMyAds, name="deleteMyAds"),
     path('my-ads/edit/<int:pk>', views.postEditProducts, name="editMyAds"),
     path('fav', views.favourite_add, name="favourite_add"),
-
+    path('watchlist', views.watchlist, name="watchlist"),
+    path('sold/<int:pk>', views.sold, name="sold"),
     path('comments', views.comments, name="comments"),
     path('comments/reply/<int:pk>', views.reply, name="reply"),
     path('premium-products', PremiumView.as_view(), name="premium-products"),

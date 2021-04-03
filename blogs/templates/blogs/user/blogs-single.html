@@ -1,0 +1,28 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content%}
+
+
+<section class="home">
+
+    <!-- Listings start-->
+    <div class="titles">
+     <h2 style="color: #283747;">{{ title }}</h2>
+     <p style="color:#6F6F6F;">Posted on {{ blog.publish_date }}</p>
+    </div>
+    <div class="blog">
+    <div class="blog__top">
+        <h1>{{ blog.title }}</h1>
+    </div>
+    <div class="blog__image">
+        <img src="{{ blog.photo.url }}" />
+    </div>
+    <div class="blog__des">
+        <p>{{ blog.description | safe }}</p>
+    </div>
+
+</div>
+</section>
+
+
+{%endblock content%}

@@ -532,3 +532,26 @@ def favourite_add(request):
         print(result)
 
     return JsonResponse({'result': result, })
+
+
+def watchlist(request):
+     # Category dropdown
+    cat = Category.objects.all()
+    title = "Watchlist"
+    fav = True
+
+    prod = Product.objects.filter(favourites=request.user)
+    context = {'prod': prod, 'title': title, 'cat': cat, 'fav': fav}
+    #context['prod'] = prod
+    return render(request, "productMS/user/product-list.html", context)
+
+
+def sold(request, pk=None):
+    prod = Product.objects.get(id=pk)
+    if prod.sold:
+        prod.sold = False
+        prod.save()
+    else:
+        prod.sold = True
+        prod.save()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

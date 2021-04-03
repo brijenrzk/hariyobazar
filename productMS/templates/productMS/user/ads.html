@@ -15,8 +15,21 @@
               <img src="{{p.photo.url}}" />
               <div class="ads__content">
                 <div class="ads__contentTop">
-                <h2>{{ p.name }}</h2>
+                <div>
+                  {% if not p.sold %}
+                  <h5>{{p.name}}</h5>
+                  {% else %}
+                  <h5>{{p.name}} <span style="color: #DC3544;">(Sold Out)</span></h5>
+                  {% endif %}
                 <h3>Rs.{{ p.price }}</h3>
+              </div>
+              <div class="ads__wrapSold">
+                {%if not p.sold%}
+                <a href="{%url 'productMS:sold' p.pk%}">Mark as sold</a>
+                {%else%}
+                <a href="{%url 'productMS:sold' p.pk%}" style="background-color: #E68181;">Mark as unsold</a>
+                {%endif%}
+              </div>
               </div>
               <div class="ads__contentDown">
                 <p>Posted on {{ p.publish_date }}</p>

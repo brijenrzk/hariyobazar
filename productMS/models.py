@@ -46,6 +46,7 @@ class Product(models.Model):
     show_contact = models.BooleanField(default=0)
     favourites = models.ManyToManyField(
         User, related_name='favourite', default=None, blank=True)
+    sold = models.BooleanField(default=0)
 
     def save(self, *args, **kwargs):
         value = self.name

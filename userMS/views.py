@@ -48,7 +48,7 @@ def signIn(request):
                     cus.online_status = 1
                     cus.save()
                 # print()
-                return redirect('productMS:index')
+                return redirect('userMS:dashboard')
             else:
                 messages.info(request, 'Username or Password is incorrect.')
 

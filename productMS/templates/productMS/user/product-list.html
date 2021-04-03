@@ -28,7 +28,6 @@ crossorigin="anonymous"></script>
     <!-- Card -->
     <div class="pCard col s6 m3 infinite-item">
       <div class="pCard__image " >
-        <a href="#" class="pCard__wishlist"><i class="material-icons">turned_in_not</i></a>
         <a href="{% url 'productMS:single-product' p.slug %}" class="pCard__imageWrap">
         <img src="{{p.photo.url}}">
         </a>
@@ -40,7 +39,11 @@ crossorigin="anonymous"></script>
         {% endif %}
       </div>
       <a href="{% url 'productMS:single-product' p.slug %}">
-      <h5>{{p.name}}</h5>
+        {% if not p.sold %}
+        <h5>{{p.name}}</h5>
+        {% else %}
+        <h5>{{p.name}} <span style="color: #DC3544;">(Sold Out)</span></h5>
+        {% endif %}
       <h4>Rs. {{p.price}}</h4>
      </a>
     </div>

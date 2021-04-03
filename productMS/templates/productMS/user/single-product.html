@@ -24,14 +24,22 @@
      
      <div class="sinPage__topRight col s12 m3 push-m1">
        <div class="sinPage__price">
+        {%if user.is_authenticated%}
          <span id="thumbs" data-value="{{ prod.id }}"></span>
          {% if fav%}
          <a href="" id="watchlist" value="{{ prod.id }}" class="sinPage__wishlist"><i class="material-icons" id="fav">turned_in</i></a>
          {%else%}
          <a href="" id="watchlist" value="{{ prod.id }}" class="sinPage__wishlist"><i class="material-icons" id="fav">turned_in_not</i></a>
          {%endif%}
+         {%else%}
+         <a href="{% url 'userMS:login' %}?next={{request.path}}" class="sinPage__wishlist"><i class="material-icons">turned_in_not</i></a>
+         {%endif%}
          <div class="sinPage__priceTop">
-           <h4>{{ prod.name }}</h4>
+          {% if not prod.sold %}
+      <h5>{{prod.name}}</h5>
+      {% else %}
+      <h5>{{prod.name}} <span style="color: #DC3544;">(Sold Out)</span></h5>
+      {% endif %}
            <h3>Rs.{{ prod.price }}</h3>
          </div>
          <div class="sinPage__priceDown">
