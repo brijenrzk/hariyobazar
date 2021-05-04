@@ -105,7 +105,38 @@
          </div>
        </div>
        <div class="sinPage__btmRight col s12 m3 push-m1">
-     
+              <!-- Listings start-->
+    <div class="titles" style="margin-top: 60px;">
+      <h2>Recommended For You</h2>
+ 
+     </div>
+    
+     <div class="wrapCard row">
+       {%for p in prodRecom%}
+     <!-- Card -->
+     <div class="pCard col s12 m6">
+       <div class="pCard__image">
+         <a href="{% url 'productMS:single-product' p.slug %}" class="pCard__imageWrap">
+         <img src="{{p.photo.url}}">
+         </a>
+       </div>
+       <a href="{% url 'productMS:single-product' p.slug %}">
+         {% if not p.sold %}
+         <h5>{{p.name}}</h5>
+         {% else %}
+         <h5>{{p.name}} <span style="color: #DC3544;">(Sold Out)</span></h5>
+         {% endif %}
+       <h4>Rs. {{ p.price }}</h4>
+      </a>
+     </div>
+     <!-- End of Card -->
+     {%endfor%}
+ 
+  
+      
+    </div>
+    
+     <!-- Listings end-->
        </div>
      </div>
      

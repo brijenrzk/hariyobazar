@@ -15,9 +15,9 @@
             <div class="ads__contentWrap col s12 m8">
               <img src="{{p.photo.url}}" />
               <div class="ads__content">
-                <div class="ads__contentTop">
-                <h3>Comment: {{ c.question }}</h3>
-                <h3 style="margin-top: 10px;"><span style="color: #9DC88D;">Answer: </span>{{ c.answer }}</h3>
+                <div class="ads__contentTop" style="flex-direction: column;">
+                <h3>Comment:</h3>
+                <h3 style="margin-top: 10px;">{{ c.question }}</h3>
               </div>
               <div class="ads__contentDown">
                 <p>Commented on {{ c.publish_date }} by {{ p.user.first_name }}</p>

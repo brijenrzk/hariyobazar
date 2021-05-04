@@ -1,6 +1,11 @@
 {%extends 'base.html' %}
 {% load static %}
 {% block content%}
+<style>
+  .navMobile__cto{
+  display: none;
+}
+</style>
 <section class="login">
     <h2 class="login__title">Hello</h2>
     <h4 class="login__subTitle">Sign in to <span class="primary__color">Hariyo Bazar</span> or <a class="sublink" href="{% url 'userMS:register' %}">create an account</a> </h4>

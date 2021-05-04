@@ -1,0 +1,116 @@
+{%extends 'base.html' %}
+{% load static %}
+{% load watermark %}
+{% block content%}
+
+
+<section class="home">
+
+ 
+    {%include 'search.html'%}
+     
+     
+     <div class="sinPage__top row">
+     <!-- images -->
+     <div class="item__img-wrap col s12 m8">
+       <div class="item__main-img">
+         <img src="{{ prod.photo.url |watermark:"hariyo,position=tl,scale=0.2,opacity=35"}}" onclick="openModal();currentSlide(1)" />
+       </div>
+       <div class="item__side-img">
+        {% for ph in prodImg %}
+         <img src="{{ ph.product_photo.url |watermark:"hariyo,position=tl,scale=0.2,opacity=35"}}" onclick="openModal();currentSlide(1)" />
+        {%endfor%}
+       </div>
+     </div>
+     <!-- end if image -->
+     
+     <div class="sinPage__topRight col s12 m3 push-m1">
+       <div class="sinPage__price">
+         <div class="sinPage__priceTop">
+          {% if not prod.sold %}
+      <h5>{{prod.name}}</h5>
+      {% else %}
+      <h5>{{prod.name}} <span style="color: #DC3544;">(Sold Out)</span></h5>
+      {% endif %}
+           <h3>Rs.{{ prod.price }}</h3>
+         </div>
+         <div class="sinPage__priceDown">
+           <p><i class="material-icons">remove_red_eye</i> {{ prod.views }} views</p>
+           <p>Posted on {{ prod.publish_date }}</p>
+         </div>
+     
+       </div>
+       <div class="sinPage__seller">
+         <div class="sinPage__sellerTop">
+           <div class="sinPage__sellerTopLeft">
+             <h4>Seller</h4>
+           </div>
+           <div class="sinPage__sellerTopRight">
+             <p>{{ prod.user.first_name }}</p>
+             <img src="{{prod.user.customer.photo.url}}"/>
+           </div>
+         </div>
+         <div class="sinPage__sellerDown">
+           <p>{{ prod.user.email }}</p>
+           {% if prod.show_contact %}
+           <p>{{ prod.user.customer.contact }}</p>
+           {%else%}
+           <p>Contact Number not provided</p>
+           {%endif%}
+         </div>
+       </div>
+     
+     
+     </div>
+     
+     </div>
+     
+     <div class="sinPage__btm row">
+       <div class="sinPage__btmLeft col s12 m8">
+         <div class="sinPage__btmDes">
+             <h4>Description</h4>
+             <p>{{ prod.description }}</p>
+         </div>
+       </div>
+     </div>
+     
+     
+     
+     
+     
+     
+     
+     
+     <!-- The Modal -->
+     <div id="myModal" class="modal mdl">
+       <span class="close cursor" onclick="closeModal()">&times;</span>
+       <div class="modal-content mdl-content">
+         <div class="mySlides">
+           <img src="{{ prod.photo.url }}" style="width:100%" />
+         </div>
+     
+         {% for ph in prodImg %}
+         <div class="mySlides">
+           <img
+             src="{{ ph.product_photo.url }}"
+             style="width:100%"
+           />
+         </div>
+
+         {%endfor%}
+     
+     
+         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+         <a class="next" onclick="plusSlides(1)">&#10095;</a>
+       </div>
+     </div>
+     
+     <!-- End of model -->
+
+
+</section>
+
+
+
+
+{%endblock content%}

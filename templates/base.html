@@ -45,7 +45,7 @@
     <p>Hello, {%if not user.is_authenticated%}<a class="sublink" href="{% url 'userMS:login' %}">Sign In</a> or <a href="{% url 'userMS:register' %}" class="sublink">Register</a>{%else%}<a class="sublink" href="{% url 'userMS:dashboard' %}">{{user.first_name}}</a>{%endif%}</p>
     </div>
     <div class="top__right">
-      <a class="sublink" href="#"> Help & Contact</a>
+      <a class="sublink" href="{% url 'productMS:donate' %}"> Donate</a>
       <a class="sublink" href="{% url 'blogs:blog' %}"> Blogs</a>
       {%if user.is_authenticated%}
       <a class="sublink" href="{% url 'productMS:watchlist' %}"> Watchlist</a>
@@ -100,7 +100,9 @@
 
 {%endblock%}
 
-
+<div class="navMobile__cto waves-effect waves-light btn">
+  <a href="{% url 'productMS:sell' %}" class="">Sell</a>
+</div>
 
 
 

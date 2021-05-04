@@ -240,3 +240,34 @@ transform: translateY(-50%);
 .drop-down__item:hover:before{
   display:block;
 }
+.navMobile__cto{
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  /* For mobile phones: */
+
+}
+@media only screen and (max-width: 420px) {
+  .nav__cto{
+    display: none !important;
+  }
+  .navMobile__cto{
+    display: block;
+    position: fixed;
+    width: 130px !important;
+    height: 50px !important;
+    line-height: 2.6;
+    bottom: 40px;
+    right: 30px;
+    background-color: $primary-color2;
+    border-radius: 25px;
+  }
+  .navMobile__cto a{
+    color: $primary-color4;
+    font-family: 'SF Pro Display Bold';
+    font-size: 1.4rem;
+}
+
+
+}

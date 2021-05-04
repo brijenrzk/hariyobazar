@@ -1,0 +1,79 @@
+{%extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content%}
+
+<section class="register">
+    <h2 class="register__title">Donate</h2>
+  
+    {%for key, value in form.errors.items%}
+    {% for error in value %}
+      <div class="error__box">{{ error }}</div>
+      {% endfor %}
+    {%endfor%}
+    {% for message in messages %}
+    <div id="messages" class="success__box">{{ message }}</div>
+  {%endfor%}
+    <div class="row">
+      <form class="form row col s12 m12" method="POST" action="" enctype="multipart/form-data" id="productForm" data-cities-url="{% url 'productMS:ajax_load_subcat' %}">
+          {% csrf_token %}
+          <div class="profile__right_wrap row col s12 m12">
+              <div class="profile__right_details col s12 m12">
+                  <div class="profile__right_wrapDetail row s12 m12" style="margin-bottom: 0; padding-bottom: 0;">
+                      <div class="profile__right_detail col s12 m6">
+                        <fieldset class="form__inputWrapper">	
+                            <input type="text" class="form__input" name="full_name" required/>
+                          <label class="form__label">Full Name</label>
+                        </fieldset>
+                      </div>
+                      <div class="col m1"></div>
+                      <div class="profile__right_detail col s12 m6">
+                        <fieldset class="form__inputWrapper">	
+                            <input type="tel" class="form__input" name="contact" required/>
+                          <label class="form__label">Contact Number</label>
+                        </fieldset>
+                      </div>
+                  </div>
+
+                  <div class="profile__right_wrapDetail row s12 m12" style="margin-bottom: 0; padding-bottom: 0;">
+                    <div class="profile__right_detail col s12 m6">
+                      <fieldset class="form__inputWrapper">	
+                          <input type="text" class="form__input" name="address" required/>
+                        <label class="form__label">Address</label>
+                      </fieldset>
+                    </div>
+                    <div class="col m1"></div>
+                    <div class="profile__right_detail col s12 m6">
+                      <fieldset class="form__inputWrapper">	
+                          <input type="text" class="form__input" name="product_name" required/>
+                        <label class="form__label">Product Name</label>
+                      </fieldset>
+                    </div>
+                </div>
+      
+    
+                    <label>
+                      <span>We will call you right after for further process. Thankyou for your donation.</span>
+                    </label>
+              
+    
+    
+    
+      </div>
+               
+          </div>
+          <div class="profile__right_buttons col s12 m4">
+            <div class="waves-effect waves-light btn">
+              <input type="submit" class="form__btn " value="Donate Now"/>
+            </div>
+        
+        </div>
+      
+      
+      
+      </form>
+  </div>
+  </section>
+
+
+{%endblock content%}

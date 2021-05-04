@@ -9,6 +9,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from .prediction import title_recommendations
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+from django.utils.html import strip_tags
 # Create your views here.
 
 
@@ -56,6 +61,15 @@ def adminProductsAdd(request):
                 pro_photo.product = product
                 pro_photo.product_photo = f
                 pro_photo.save()
+
+            # a = str(product.category)+'|'+str(product.sub_category)
+            # List = [product.name, a]
+            # print(List)
+            # with open('../movies.csv', 'a') as f_object:
+            #     writer_object = writer(f_object)
+            #     writer_object.writerow(List)
+            #     print("hello")
+            #     f_object.close()
 
             return redirect("productMS:admin-products-list")
 
@@ -235,16 +249,58 @@ def index(request):
     # latest products
     prodLat = Product.objects.exclude(
         premium=True).order_by('-publish_date')[0:8]
-    # recommended products
-    prodR = list(Product.objects.filter(premium=False))
-    if(len(prodR) > 2):
-        prodRecom = random.sample(prodR, 2)
-    else:
-        prodRecom = Product.objects.filter(premium=False)[0:4]
+
     # Category dropdown
     cat = Category.objects.all()
     # Banner
     ban = Banner.objects.all()
+    if not request.user.is_authenticated:
+        print(request.user)
+        # recommended products
+        prodR = list(Product.objects.filter(premium=False))
+        if(len(prodR) > 2):
+            prodRecom = random.sample(prodR, 2)
+        else:
+            prodRecom = Product.objects.filter(premium=False)[0:4]
+    else:
+
+        # here
+        favs = Product.objects.filter(favourites=request.user)
+
+        fav_name = ''
+        prodRecom = []
+        if favs:
+            fav = favs[len(favs)-1]
+            fav_name = fav.name
+            print(fav.name)
+
+            recommended_prod = title_recommendations(fav_name)[:5]
+
+            pp = []
+            for r in recommended_prod:
+                rr = Product.objects.get(name=r)
+                if(rr.name == fav.name):
+                    continue
+                pp.append(rr)
+
+            prodRecom = pp[:4]
+
+        else:
+            # recommended products
+            prodR = list(Product.objects.filter(premium=False))
+            if(len(prodR) > 2):
+                prodRecom = random.sample(prodR, 2)
+            else:
+                prodRecom = Product.objects.filter(premium=False)[0:4]
+            print("no favourites")
+
+    # end here
+
+    # print(fav_name)
+    # print(fav_list[0].name)
+    # print(title_recommendations('yolo'))
+
+    # print(title_recommendations(fav_name))
 
     context = {'prodPrem': prodPrem,
                'prodLat': prodLat, 'prodRecom': prodRecom, 'cat': cat, 'ban': ban}
@@ -407,6 +463,19 @@ def singleProduct(request, slug):
     prod.views = view + 1
     prod.save()
 
+    prodRecom = []
+    fav_name = prod.name
+
+    recommended_prod = title_recommendations(fav_name)[:5]
+    pp = []
+    for r in recommended_prod:
+        rr = Product.objects.get(name=r)
+        if(rr.name == prod.name):
+            continue
+        pp.append(rr)
+
+    prodRecom = pp[:4]
+
     if request.method == 'POST':
         askQuestions = Questions()
         askQuestions.question = request.POST['question']
@@ -418,7 +487,7 @@ def singleProduct(request, slug):
     questions = Questions.objects.filter(product=prod)
     #question = {}
     context = {'prod': prod, 'prodImg': prodImg,
-               'cat': cat, 'questions': questions, 'fav': fav}
+               'cat': cat, 'questions': questions, 'fav': fav, 'prodRecom': prodRecom}
     return render(request, "productMS/user/single-product.html", context)
 
 
@@ -448,7 +517,7 @@ def sell(request):
                 pro_photo.product = product
                 pro_photo.product_photo = f
                 pro_photo.save()
-            return redirect("productMS:index")
+            return redirect("productMS:watermarkAds", slug=product.slug)
         else:
             print("fail")
 
@@ -464,6 +533,15 @@ def myAds(request):
         answer__exact='').count()
     context = {'prod': prod, 'productForm': productForm, 'cmt': cmt}
     return render(request, 'productMS/user/ads.html', context)
+
+
+def watermarkAds(request, slug):
+    cat = Category.objects.all()
+    prod = Product.objects.get(slug=slug)
+    prodImg = ProductPhoto.objects.filter(product=prod)
+    context = {'prod': prod, 'prodImg': prodImg,
+               'cat': cat}
+    return render(request, "productMS/user/watermark-product.html", context)
 
 
 def deleteMyAds(request, pk=None):
@@ -540,7 +618,7 @@ def watchlist(request):
     title = "Watchlist"
     fav = True
 
-    prod = Product.objects.filter(favourites=request.user)
+    prod = reversed(Product.objects.filter(favourites=request.user))
     context = {'prod': prod, 'title': title, 'cat': cat, 'fav': fav}
     #context['prod'] = prod
     return render(request, "productMS/user/product-list.html", context)
@@ -555,3 +633,25 @@ def sold(request, pk=None):
         prod.sold = True
         prod.save()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def donate(request):
+
+    if request.method == 'POST':
+        fullName = request.POST['full_name']
+        contact = request.POST['contact']
+        address = request.POST['address']
+        productName = request.POST['product_name']
+        template = render_to_string(
+            'productMS/user/email-template.html', {'name': fullName, 'contact': contact, 'address': address, 'productName': productName})
+        email = EmailMessage('Donation',
+                             template, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER],)
+        email.fail_silently = False
+        email.content_subtype = 'html'
+        email.send()
+        messages.success(
+            request, 'Success. We will get back to you shortly. Thankyou for your donation.')
+        return redirect("productMS:donate")
+
+    context = {}
+    return render(request, "productMS/user/donate.html", context)

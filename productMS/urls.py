@@ -58,6 +58,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('sell', views.sell, name="sell"),
     path('my-ads', views.myAds, name="myAds"),
+    path('my-ads/<slug:slug>', views.watermarkAds, name="watermarkAds"),
     path('my-ads/delete/<int:pk>', views.deleteMyAds, name="deleteMyAds"),
     path('my-ads/edit/<int:pk>', views.postEditProducts, name="editMyAds"),
     path('fav', views.favourite_add, name="favourite_add"),
@@ -70,4 +71,6 @@ urlpatterns = [
     path('category/<slug:slug>/', CategoryView.as_view(), name="category-products"),
     path('search', views.searchProduct, name="search-products"),
     path('product/<slug:slug>/', views.singleProduct, name="single-product"),
+
+    path('donate', views.donate, name="donate"),
 ]

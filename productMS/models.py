@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.utils.text import slugify
+import itertools
 # Create your models here.
 
 
@@ -48,9 +49,21 @@ class Product(models.Model):
         User, related_name='favourite', default=None, blank=True)
     sold = models.BooleanField(default=0)
 
-    def save(self, *args, **kwargs):
+    def _generate_slug(self):
+        max_length = self._meta.get_field('slug').max_length
         value = self.name
-        self.slug = slugify(value, allow_unicode=True)
+        slug_candidate = slug_original = slugify(value, allow_unicode=True)
+        for i in itertools.count(1):
+            if not Product.objects.filter(slug=slug_candidate).exists():
+                break
+            slug_candidate = '{}-{}'.format(slug_original, i)
+
+        self.slug = slug_candidate
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self._generate_slug()
+
         super().save(*args, **kwargs)
 
 

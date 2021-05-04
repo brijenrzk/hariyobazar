@@ -75,3 +75,11 @@
 .register .row .col.s6{
     padding: 5px 8px 10px 8px;
 }
+
+
+@media only screen and (max-width: 900px) {
+    /* For mobile phones: */
+    .register{
+        width: 100%;
+    }
+  }

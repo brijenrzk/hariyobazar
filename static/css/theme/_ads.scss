@@ -1,5 +1,5 @@
 .ads__wrap{
-    height: 8rem;
+    height: auto;
     border: 1px solid #CECECE;
     border-radius: 5px;
     margin-bottom: 20px;
@@ -14,7 +14,7 @@
 }
 
 .ads__contentWrap img{
-    height: 90%;
+    height: 7rem;
     border-radius: 5px;
     align-self: center;
 }
@@ -76,11 +76,34 @@
     display: flex;
     justify-content: flex-end;
     height: 100%;
+    margin-top: 40px;
 }
 .ads__buttonWrap .btn{
-    height: 100% !important;
+    height: 40px !important;
     width: 80px;
-    line-height: 8.5;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    margin-right: 15px !important;
+    box-shadow: none !important;
+    border-radius: 5px !important;
 }
 
+@media only screen and (max-width: 900px) {
+    /* For mobile phones: */
+    .ads__contentTop{
+        flex-direction: column;
+    }
+    .ads__wrapSold{
+        margin-left: 0;
+    }
+    .ads__contentDown{
+        margin-top: 20px;
+        flex-direction: column;
+    }
+    .ads__buttonWrap{
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+  }
 

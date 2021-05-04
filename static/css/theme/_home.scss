@@ -259,3 +259,19 @@ top: 20px;
   color: #000;
   font-family: 'Sf Pro Display';
 }
+
+
+@media only screen and (max-width: 900px) {
+  /* For mobile phones: */
+  .dropdown-container {
+
+    padding-right: 0 !important;
+
+  }
+  .carousel{
+    height: 180px;
+  }
+  .carousel .carousel-item > img{
+    height: 180px;
+  }
+}

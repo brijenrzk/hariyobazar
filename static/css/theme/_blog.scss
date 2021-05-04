@@ -34,3 +34,11 @@
     word-spacing: 1px;
 
 }
+
+@media only screen and (max-width: 900px) {
+    /* For mobile phones: */
+    .blog__top h1{
+
+        font-size: 2.8rem;
+    }
+  }
